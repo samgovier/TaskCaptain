@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskCaptain", "TaskCaptain\TaskCaptain.csproj", "{36A3B05F-B302-4E6F-B699-CC80C2CB147B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boatswain", "Boatswain\Boatswain.csproj", "{3C99E19D-6854-4F94-8C10-3B996519A229}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36A3B05F-B302-4E6F-B699-CC80C2CB147B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36A3B05F-B302-4E6F-B699-CC80C2CB147B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36A3B05F-B302-4E6F-B699-CC80C2CB147B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36A3B05F-B302-4E6F-B699-CC80C2CB147B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C99E19D-6854-4F94-8C10-3B996519A229}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C99E19D-6854-4F94-8C10-3B996519A229}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C99E19D-6854-4F94-8C10-3B996519A229}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C99E19D-6854-4F94-8C10-3B996519A229}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {08704377-52F2-4E6B-99D0-119D0B036A48}
+	EndGlobalSection
+EndGlobal
