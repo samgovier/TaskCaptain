@@ -8,7 +8,7 @@ TaskCaptain is a C# desktop application designed to allow specific automated act
 Create a specified template task on the last workday of each month.
 
 #### Algorithmic Tasks
-Create tasks with an algorithmic format. Eg. Review notes from <date>
+Create tasks with an algorithmic format. Eg. Review notes from \<date\>
 
 #### Clear To Inbox
 Send all tasks from a Project Back to the Inbox.
