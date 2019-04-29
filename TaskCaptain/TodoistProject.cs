@@ -68,7 +68,7 @@ namespace TaskCaptain
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Task content cannot be empty.");
-}
+                }
                 else
                 {
                     _name = value;
@@ -237,7 +237,7 @@ namespace TaskCaptain
             return _taskList.Contains(toCheck);
         }
 
-        public void CopyTo (TodoistTask[] outputArray, int arrayIndex)
+        public void CopyTo(TodoistTask[] outputArray, int arrayIndex)
         {
             _taskList.CopyTo(outputArray, arrayIndex);
         }
@@ -292,11 +292,12 @@ namespace TaskCaptain
             TodoistTask[] tasksToAdd = new TodoistTask[12];
             for (int i = 0; i < tasksToAdd.Length; i++)
             {
-                int currentMonth = (DateTime.Today.Month + i) % 12;
-                int currentYear = DateTime.Today.Year + (int)Math.Floor((double)i / 12);
+                int monthDelta = DateTime.Today.Month + i;
+                int currentMonth = monthDelta % 12;
+                int currentYear = DateTime.Today.Year + (int)Math.Floor((double)monthDelta / 12);
                 int lastDay = DateTime.DaysInMonth(currentYear, currentMonth);
                 DateTime taskDate = new DateTime(currentYear, currentMonth, lastDay);
-                while (null == tasksToAdd[i])
+                do
                 {
                     if (TodoistDue.IsWeekend(taskDate) || TodoistDue.IsHoliday(taskDate))
                     {
@@ -304,9 +305,31 @@ namespace TaskCaptain
                     }
                     else
                     {
-                        TodoistDue taskDueDate = new TodoistDue(taskDate);
-                        TodoistTask taskToAdd = new TodoistTask(subject, Id, priority, taskDueDate);
-                        tasksToAdd[i] = taskToAdd;
+                        TodoistDue taskDueDate = new TodoistDue(taskDate, false);
+                        tasksToAdd[i] = new TodoistTask(subject, Id, priority, taskDueDate);
+                    }
+                } while (null == tasksToAdd[i]);
+            }
+        }
+
+        /// <summary>
+        /// Move all tasks passed via parameter to either Monday or Sunday, depending on if they're weekday or weekend
+        /// </summary>
+        public static void ScheduleToWeekStart(params TodoistTask[] tasksToMove)
+        {
+            foreach (TodoistTask task in tasksToMove)
+            {
+                DateTime taskDate;
+
+                if (task.Due.TryParseToDateTime(out taskDate))
+                {
+                    if (taskDate.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        task.Due = new TodoistDue(taskDate.AddDays(-1.0d), task.Due.Recurring);
+                    }
+                    else if (DayOfWeek.Tuesday <= taskDate.DayOfWeek && taskDate.DayOfWeek <= DayOfWeek.Friday)
+                    {
+                        task.Due = new TodoistDue(taskDate.AddDays(DayOfWeek.Monday - taskDate.DayOfWeek), task.Due.Recurring);
                     }
                 }
             }
