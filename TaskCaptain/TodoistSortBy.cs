@@ -49,6 +49,24 @@ namespace TaskCaptain
 
     }
 
+    internal class SortTasksByContent : IComparer<TodoistTask>
+    {
+        public int Compare(TodoistTask x, TodoistTask y)
+        {
+            return x.Content.CompareTo(y.Content);
+        }
+
+    }
+
+    internal class SortTasksByDue : IComparer<TodoistTask>
+    {
+        public int Compare(TodoistTask x, TodoistTask y)
+        {
+            return x.Due.CompareTo(y.Due);
+        }
+
+    }
+
     public class SortProjectsByName : IComparer<TodoistProject>
     {
         public int Compare(TodoistProject x, TodoistProject y)

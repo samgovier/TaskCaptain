@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaskCaptain
 {
-    public class TodoistDue
+    public class TodoistDue : IComparable
     {
         #region Config
         private static DateTime[] _holidayList = HolidayList(DateTime.Now.Year);
@@ -92,6 +92,25 @@ namespace TaskCaptain
             return true;
         }
 
+        public int CompareTo(TodoistDue value)
+        {
+            this.TryParseToDateTime(out DateTime xDateTime);
+            value.TryParseToDateTime(out DateTime yDateTime);
+            return xDateTime.CompareTo(yDateTime);
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj.GetType() == typeof(TodoistDue))
+            {
+                return CompareTo(obj as TodoistDue);
+            }
+            else
+            {
+                this.TryParseToDateTime(out DateTime xDateTime);
+                return xDateTime.CompareTo(obj);
+            }
+        }
         #endregion
 
         #region Static Properties
