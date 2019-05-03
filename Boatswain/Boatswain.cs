@@ -16,7 +16,7 @@ namespace Boatswain
         static TodoistProject testProjectOnline;
         static TodoistProject testProjectOffline;
         static TodoistTask testTask1Offline = new TodoistTask("TestTask");
-        static TodoistTask testTask2Offline = new TodoistTask("TestTask", 2, 4, new TodoistDue(DateTime.Today));
+        static TodoistTask testTask2Offline = new TodoistTask("TestTask", 2, 4, new TodoistDue(DateTime.Today, false));
         static TodoistTask testTask3Offline = new TodoistTask("TestTask1", null, 1, null);
 
         [TestMethod]

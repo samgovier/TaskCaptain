@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaskCaptain
 {
-    public class TodoistDue
+    public class TodoistDue : IComparable
     {
         #region Config
         private static DateTime[] _holidayList = HolidayList(DateTime.Now.Year);
@@ -39,6 +39,7 @@ namespace TaskCaptain
         public string TimeZone { get; private set; }
 
         #endregion
+
         #region Constructors
         /// <summary>
         /// This full constructor takes all the details from an online Due object and creates the TodoistDue object
@@ -61,17 +62,54 @@ namespace TaskCaptain
         /// This DateTime constructor uses a DateTime object to create a Due object
         /// </summary>
         /// <param name="taskDate"></param>
-        public TodoistDue(DateTime taskDate)
+        /// <param name="_recurring"></param>
+        public TodoistDue(DateTime taskDate, bool _recurring)
         {
             EntryString = DateValue = taskDate.ToString("yyyy-MM-dd");
 
             if (taskDate.TimeOfDay.ToString() != "00:00:00")
             {
-                DateTimeValue = taskDate.ToUniversalTime().TimeOfDay.ToString();
+                EntryString = DateTimeValue = DateValue + "T" + taskDate.ToUniversalTime().TimeOfDay.ToString() + "Z";
                 TimeZone = TimeZoneInfo.Local.StandardName;
             }
 
-            Recurring = false;
+            Recurring = _recurring;
+        }
+        #endregion
+
+        #region Functions
+
+        public bool TryParseToDateTime(out DateTime parsedDateTime)
+        {
+            if(!DateTime.TryParse(DateTimeValue, out parsedDateTime))
+            {
+                if(!DateTime.TryParse(DateValue, out parsedDateTime))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public int CompareTo(TodoistDue value)
+        {
+            this.TryParseToDateTime(out DateTime xDateTime);
+            value.TryParseToDateTime(out DateTime yDateTime);
+            return xDateTime.CompareTo(yDateTime);
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj.GetType() == typeof(TodoistDue))
+            {
+                return CompareTo(obj as TodoistDue);
+            }
+            else
+            {
+                this.TryParseToDateTime(out DateTime xDateTime);
+                return xDateTime.CompareTo(obj);
+            }
         }
         #endregion
 
