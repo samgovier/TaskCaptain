@@ -30,6 +30,8 @@ namespace TaskCaptain
         SortTasksById _sortTasksById = new SortTasksById();
         SortTasksByOrder _sortTasksByOrder = new SortTasksByOrder();
         SortTasksByPriority _sortTasksByPriority = new SortTasksByPriority();
+        SortTasksByContent _sortTasksByContent = new SortTasksByContent();
+        SortTasksByDue _sortTasksByDue = new SortTasksByDue();
 
         /// <summary>
         /// Id is the id of the project, as listed in Todoist
@@ -227,6 +229,11 @@ namespace TaskCaptain
             _taskList.Add(toAdd);
         }
 
+        public void AddRange(IEnumerable<TodoistTask> collection)
+        {
+            _taskList.AddRange(collection);
+        }
+
         public void Clear()
         {
             _taskList.Clear();
@@ -262,6 +269,16 @@ namespace TaskCaptain
             _taskList.Sort(_sortTasksByPriority);
         }
 
+        public void SortByContent()
+        {
+            _taskList.Sort(_sortTasksByContent);
+        }
+
+        public void SortByDue()
+        {
+            _taskList.Sort(_sortTasksByDue);
+        }
+
         public IEnumerator GetEnumerator()
         {
             return _taskList.GetEnumerator();
@@ -287,7 +304,7 @@ namespace TaskCaptain
         /// <summary>
         /// Create tasks on the last workday of each month.
         /// </summary>
-        public void CreateLastWorkdayTasks(string subject, int priority)
+        public static void CreateLastWorkdayTasks(string subject, int priority, TodoistProject destProject)
         {
             TodoistTask[] tasksToAdd = new TodoistTask[12];
             for (int i = 0; i < tasksToAdd.Length; i++)
@@ -306,10 +323,12 @@ namespace TaskCaptain
                     else
                     {
                         TodoistDue taskDueDate = new TodoistDue(taskDate, false);
-                        tasksToAdd[i] = new TodoistTask(subject, Id, priority, taskDueDate);
+                        tasksToAdd[i] = new TodoistTask(subject, destProject.Id, priority, taskDueDate);
                     }
                 } while (null == tasksToAdd[i]);
             }
+
+            destProject.AddRange(tasksToAdd);
         }
 
         /// <summary>
@@ -332,6 +351,44 @@ namespace TaskCaptain
                         task.Due = new TodoistDue(taskDate.AddDays(DayOfWeek.Monday - taskDate.DayOfWeek), task.Due.Recurring);
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Move all tasks from an old project to an incoming project (like the inbox) to be re-sorted
+        /// </summary>
+        public static void ClearToProject(TodoistProject incomingProject, TodoistProject oldProject)
+        {
+            if(!incomingProject.IsOnline || !oldProject.IsOnline)
+            {
+                throw new TodoistOfflineException("Projects must be online to be cleared to.");
+            }
+            else
+            {
+                foreach(TodoistTask task in oldProject)
+                {
+                    incomingProject.Add(task);
+                    oldProject.Remove(task);
+                    // REST ACTION
+                }
+            }
+        }
+
+        /// <summary>
+        /// Translate a task into it's recurrences for a specified amount of days
+        /// </summary>
+        public static void TranslateRecurrence(TodoistTask recurringTask, TimeSpan interval)
+        {
+            if (!recurringTask.Due.Recurring)
+            {
+                return;
+            }
+            
+            recurringTask.Due.TryParseToDateTime(out DateTime initialDue);
+            DateTime currentDue = initialDue;
+            while (interval > currentDue.Subtract(initialDue))
+            {
+                // PARSE RECURRING STATUS
             }
         }
 
