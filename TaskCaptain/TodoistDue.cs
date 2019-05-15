@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace TaskCaptain
 {
+    [JsonObject]
     public class TodoistDue : IComparable
     {
         #region Config
@@ -49,6 +51,7 @@ namespace TaskCaptain
         /// <param name="_dateTime"></param>
         /// <param name="_recurring"></param>
         /// <param name="_timeZone"></param>
+        [JsonConstructor]
         public TodoistDue(string _entryString, string _date, string _dateTime, bool _recurring, string _timeZone)
         {
             EntryString = _entryString;

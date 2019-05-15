@@ -5,19 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace TaskCaptain
 {
     /// <summary>
     /// TodoistTask represents the Task objects as they exist in the Todoist infrastructure, along with additional functionality
     /// </summary>
+    [JsonObject]
     public class TodoistTask : INotifyPropertyChanging, INotifyPropertyChanged
     {
         #region Config
 
         // These are the private backing fields for the below properties
-        int? _id;
-        int? _projectId;
+        long? _id;
+        long? _projectId;
         int? _order;
         int? _indent;
         int _priority;
@@ -28,7 +30,7 @@ namespace TaskCaptain
         /// Id is the id of the task, as listed in Todoist
         /// Null if offline
         /// </summary>
-        public int? Id
+        public long? Id
         {
             get
             {
@@ -52,7 +54,7 @@ namespace TaskCaptain
         /// ProjectId is the id of the project this task is assigned to. MUST match with an existing TodoistProject.Id
         /// Null if offline
         /// </summary>
-        public int? ProjectId
+        public long? ProjectId
         {
             get
             {
@@ -232,7 +234,7 @@ namespace TaskCaptain
         /// <param name="projectId"></param>
         /// <param name="priority"></param>
         /// <param name="due"></param>
-        public TodoistTask(string content, int? projectId, int priority, TodoistDue due)
+        public TodoistTask(string content, long? projectId, int priority, TodoistDue due)
         {
             Content = content;
             ProjectId = projectId;
@@ -254,7 +256,8 @@ namespace TaskCaptain
         /// <param name="priority"></param>
         /// <param name="due"></param>
         /// <param name="webUrl"></param>
-        public TodoistTask(int id, int projectId, string content, bool completed, int order, int indent, int priority, TodoistDue due, string webUrl)
+        [JsonConstructor]
+        public TodoistTask(long id, long projectId, string content, bool completed, int order, int indent, int priority, TodoistDue due, string webUrl)
         {
             Id = id;
             ProjectId = projectId;
