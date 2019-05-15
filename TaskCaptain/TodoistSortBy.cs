@@ -16,8 +16,8 @@ namespace TaskCaptain
             }
             else
             {
-                int xId = (int)x.Id;
-                int yId = (int)y.Id;
+                long xId = (long)x.Id;
+                long yId = (long)y.Id;
                 return xId.CompareTo(yId);
             }
         }
@@ -85,8 +85,8 @@ namespace TaskCaptain
             }
             else
             {
-                int xId = (int)x.Id;
-                int yId = (int)y.Id;
+                long xId = (long)x.Id;
+                long yId = (long)y.Id;
                 return xId.CompareTo(yId);
             }
         }

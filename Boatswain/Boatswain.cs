@@ -38,19 +38,19 @@ namespace Boatswain
         [TestMethod]
         public void EnumerateProject()
         {
-            int i = 0;
-            foreach (TodoistTask task in testProjectOnline)
-            {
-                i += (int)task.Order;
-            }
-            Assert.AreEqual(6, i);
+           int i = 0;
+           foreach (TodoistTask task in testProjectOnline)
+           {
+               i += (int)task.Order;
+           }
+           Assert.AreEqual(6, i);
 
-            string j = "";
-            foreach (TodoistTask task in testProjectOffline)
-            {
-                j += task.Content;
-            }
-            Assert.AreEqual("TestTaskTestTaskTestTask1", j);
+           string j = "";
+           foreach (TodoistTask task in testProjectOffline)
+           {
+               j += task.Content;
+           }
+           Assert.AreEqual("TestTaskTestTaskTestTask1", j);
         }
 
         [TestMethod]
@@ -72,13 +72,13 @@ namespace Boatswain
         [TestMethod]
         public void ModifyTask()
         {
-            testProjectOnline[0].Content = "Who are you";
+           testProjectOnline[0].Content = "Who are you";
         }
 
         [TestMethod]
         public void CompleteTask()
         {
-            testProjectOnline[1].MarkComplete();
+           testProjectOnline[1].MarkComplete();
         }
 
         [TestMethod]

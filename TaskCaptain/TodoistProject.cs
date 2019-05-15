@@ -5,12 +5,14 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace TaskCaptain
 {
     /// <summary>
     /// TodoistProject represents the Project objects as they exist in the Todoist infrastructure, along with additional functionality
     /// </summary>
+    [JsonObject]
     public class TodoistProject : ICollection<TodoistTask>, IEnumerable
     {
         #region Config
@@ -18,10 +20,11 @@ namespace TaskCaptain
         /// <summary>
         /// _taskList is the private backing list that contains all the tasks
         /// </summary>
+        [JsonIgnore]
         private List<TodoistTask> _taskList;
 
         // These are the private backing fields for the below properties
-        int? _id;
+        long? _id;
         int? _order;
         int? _indent;
         string _name;
@@ -37,7 +40,8 @@ namespace TaskCaptain
         /// Id is the id of the project, as listed in Todoist
         /// Null if offline
         /// </summary>
-        public int? Id
+        [JsonProperty(nameof(Id))]
+        public long? Id
         {
             get
             {
@@ -59,6 +63,7 @@ namespace TaskCaptain
         /// <summary>
         /// Name is the title of the project
         /// </summary>
+        [JsonProperty(nameof(Name))]
         public string Name
         {
             get
@@ -81,6 +86,7 @@ namespace TaskCaptain
         /// Order is an int signifying where in the list of projects this project goes
         /// Null if offline
         /// </summary>
+        [JsonProperty(nameof(Order))]
         public int? Order
         {
             get
@@ -104,6 +110,7 @@ namespace TaskCaptain
         /// Indent is what tier this project belongs on
         /// Null if offline
         /// </summary>
+        [JsonProperty(nameof(Indent))]
         public int? Indent
         {
             get
@@ -187,7 +194,8 @@ namespace TaskCaptain
         /// <param name="name"></param>
         /// <param name="order"></param>
         /// <param name="indent"></param>
-        public TodoistProject(int id, string name, int order, int indent)
+        [JsonConstructor]
+        public TodoistProject(long id, string name, int order, int indent)
         {
             Id = id;
             Name = name;
@@ -205,7 +213,7 @@ namespace TaskCaptain
         /// <param name="order"></param>
         /// <param name="indent"></param>
         /// <param name="taskArray"></param>
-        public TodoistProject(int id, string name, int order, int indent, params TodoistTask[] taskArray)
+        public TodoistProject(long id, string name, int order, int indent, params TodoistTask[] taskArray)
         {
             Id = id;
             Name = name;
@@ -365,12 +373,12 @@ namespace TaskCaptain
             }
             else
             {
-                foreach(TodoistTask task in oldProject)
-                {
-                    incomingProject.Add(task);
-                    oldProject.Remove(task);
-                    // REST ACTION
-                }
+                //foreach(TodoistTask task in oldProject)
+                //{
+                //    incomingProject.Add(task);
+                //    oldProject.Remove(task);
+                //    // REST ACTION
+                //}
             }
         }
 
