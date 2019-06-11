@@ -5,8 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskCaptain"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="TaskCaptain" Height="450" Width="800">
+    <TabControl>
+        <TabItem Header="Focus">
+            Data Grid
+        </TabItem>
+        <TabItem Header="Filter">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                <TreeView>
+                    <TreeViewItem Header="Inbox" />
+                    <TreeViewItem Header="Personal" />
+                    <TreeViewItem Header="Work">
+                        <TreeViewItem Header="Hunt" />
+                    </TreeViewItem>
+                </TreeView>
+                <DataGrid Grid.Column="1" Margin="5"></DataGrid>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Projects">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                <TreeView>
+                    <TreeViewItem Header="Inbox" />
+                    <TreeViewItem Header="Personal" />
+                    <TreeViewItem Header="Work">
+                        <TreeViewItem Header="Hunt" />
+                    </TreeViewItem>
+                </TreeView>
+                <DataGrid Grid.Column="1" Margin="5"></DataGrid>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Automation">
+            
+        </TabItem>
+        <TabItem Header="Help">
+            
+        </TabItem>
+    </TabControl>
 </Window>
