@@ -20,6 +20,9 @@ Send all tasks from a Project Back to the Inbox.
 #### Translate Recurrence
 Translates a recurring task into it's individual recurrences over a specified time interval.
 
+## Focus View
+In addition to providing automated tasks, TaskCaptain has a Focus View that brings the view down to a few selected tasks. Similar to the star functionality in Wunderlist, TaskCaptain allows you to select certain tasks to be displayed in Focus View, helping you to quickly decide which tasks you're going to work on and focus on those in the moment.
+
 ## Contents
 
 #### TaskCaptain
@@ -29,5 +32,5 @@ TaskCaptain contains the code for running the application: both the data model f
 Boatswain contains code for unit testing via Visual Studio.
 
 ## Notes
-**Version**: 0.1  
+**Version**: 0.2  
 **Author**: Sam Govier ([GitHub](https://github.com/samgovier))  
