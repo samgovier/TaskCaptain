@@ -5,8 +5,75 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskCaptain"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="TaskCaptain" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="22" />
+        </Grid.RowDefinitions>
+        <TabControl>
+            <TabItem Header="Focus">
+                <DataGrid Grid.Column="1" Margin="10,20"></DataGrid>
+            </TabItem>
+            <TabItem Header="Filter">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <TreeView>
+                        <TreeViewItem Header="Today" />
+                        <TreeViewItem Header="Tomorrow" />
+                        <TreeViewItem Header="Saturday" />
+                        <TreeViewItem Header="Rest Of Week" />
+                        <TreeViewItem Header="7 Days" />
+                        <Button VerticalAlignment="Bottom" Content="Add Filter..." Name="AddFilter" Margin="0,5"/>
+                    </TreeView>
+                    <DataGrid Grid.Column="1" Margin="5"></DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Projects">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <TreeView>
+                        <TreeViewItem Header="Inbox" />
+                        <TreeViewItem Header="Personal" />
+                        <TreeViewItem Header="Work">
+                            <TreeViewItem Header="Hunt" />
+                        </TreeViewItem>
+                        <Button VerticalAlignment="Bottom" Content="Add Project..." Name="AddProject" Margin="0,5"/>
+                    </TreeView>
+                    <DataGrid Grid.Column="1" Margin="5"></DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Automation">
+                <TreeView Margin="10" FontSize="16">
+                    <TreeViewItem Header="Create Task: Last Weekday of Month">
+                        This automated task will create a task on the last weekday of each month.
+                    </TreeViewItem>
+                    <TreeViewItem Header="Schedule to Week Start">
+                        This automated task will move all tasks in a time period to either Monday or Sunday.
+                    </TreeViewItem>
+                    <TreeViewItem Header="Enumerate Task from Recurrence">
+                        This automated task will enumerate a task from it's recurrence into explicit tasks.
+                    </TreeViewItem>
+                    <TreeViewItem Header="Send Back to Inbox">
+                        This automated task will send all tasks from a project to the Inbox to be resorted.
+                    </TreeViewItem>
+                </TreeView>
+            </TabItem>
+            <TabItem Header="Help" />
+        </TabControl>
+        <StatusBar VerticalAlignment="Bottom" Grid.Row="1">
+            <StatusBarItem>
+                <TextBlock Text="Ready" HorizontalAlignment="Left"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <Button Content="Sync" Name="SyncButton" Click="SyncButton_Click" FontSize="8" FontWeight="Bold" FontStyle="Italic" />
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>
