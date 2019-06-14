@@ -58,6 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="TodoistAcct.cs" />
     <Compile Include="TodoistDue.cs" />
     <Compile Include="TodoistOfflineException.cs" />
     <Compile Include="TodoistProject.cs" />

@@ -24,5 +24,15 @@ namespace TaskCaptain
         {
             InitializeComponent();
         }
+
+        private void SyncButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void login()
+        {
+            
+        }
     }
 }

@@ -65,12 +65,15 @@
                     </TreeViewItem>
                 </TreeView>
             </TabItem>
-            <TabItem Header="Help">
-
-            </TabItem>
+            <TabItem Header="Help" />
         </TabControl>
         <StatusBar VerticalAlignment="Bottom" Grid.Row="1">
-            Hello.
+            <StatusBarItem>
+                <TextBlock Text="Ready" HorizontalAlignment="Left"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <Button Content="Sync" Name="SyncButton" Click="SyncButton_Click" FontSize="8" FontWeight="Bold" FontStyle="Italic" />
+            </StatusBarItem>
         </StatusBar>
     </Grid>
 </Window>
