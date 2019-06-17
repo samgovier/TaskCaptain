@@ -16,28 +16,33 @@ namespace TaskCaptain
         /// <summary>
         /// EntryString is the human defined date in arbitrary format
         /// </summary>
+        [JsonProperty("string")]
         public string EntryString { get; private set; }
-        
+
         /// <summary>
         /// DaveValue is the date in format YYYY-MM-DD corrected to timezone.
         /// </summary>
+        [JsonProperty("date")]
         public string DateValue { get; private set; }
 
         /// <summary>
         /// DateTimeValue is the date and time in UTC
         /// null if not set
         /// </summary>
+        [JsonProperty("datetime")]
         public string DateTimeValue { get; private set; }
 
         /// <summary>
         /// Recurring is whether or not the task is a recurring task
         /// </summary>
+        [JsonProperty(nameof(Recurring))]
         public bool Recurring { get; private set; }
 
         /// <summary>
         /// User's timezone definition
         /// null if DateTimeValue isn't set
         /// </summary>
+        [JsonProperty(nameof(TimeZone))]
         public string TimeZone { get; private set; }
 
         #endregion
