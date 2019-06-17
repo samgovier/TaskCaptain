@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace TaskCaptain
         /// <summary>
         /// _projectList is the private backing list that contains all projects from an account
         /// </summary>
-        private List<TodoistProject> _projectList;
+        private ObservableCollection<TodoistProject> _projectList;
         
         /// <summary>
         /// ApiToken is the API string used to communicate with the Todoist servers
@@ -60,7 +61,7 @@ namespace TaskCaptain
         public TodoistAcct(string apiToken, params TodoistProject[] projectArray)
         {
             ApiToken = apiToken;
-            _projectList = new List<TodoistProject>();
+            _projectList = new ObservableCollection<TodoistProject>();
 
             foreach (TodoistProject project in projectArray)
             {
