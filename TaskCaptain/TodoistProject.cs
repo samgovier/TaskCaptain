@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -21,7 +22,7 @@ namespace TaskCaptain
         /// _taskList is the private backing list that contains all the tasks
         /// </summary>
         [JsonIgnore]
-        private List<TodoistTask> _taskList;
+        private ObservableCollection<TodoistTask> _taskList;
 
         // These are the private backing fields for the below properties
         long? _id;
@@ -166,7 +167,7 @@ namespace TaskCaptain
         public TodoistProject(string name)
         {
             Name = name;
-            _taskList = new List<TodoistTask>();
+            _taskList = new ObservableCollection<TodoistTask>();
             IsOnline = false;
         }
 
@@ -178,7 +179,7 @@ namespace TaskCaptain
         public TodoistProject(string name, params TodoistTask[] taskArray)
         {
             Name = name;
-            _taskList = new List<TodoistTask>();
+            _taskList = new ObservableCollection<TodoistTask>();
             IsOnline = false;
 
             foreach (TodoistTask task in taskArray)
@@ -201,7 +202,7 @@ namespace TaskCaptain
             Name = name;
             Order = order;
             Indent = indent;
-            _taskList = new List<TodoistTask>();
+            _taskList = new ObservableCollection<TodoistTask>();
             IsOnline = true;
         }
 
@@ -219,7 +220,7 @@ namespace TaskCaptain
             Name = name;
             Order = order;
             Indent = indent;
-            _taskList = new List<TodoistTask>();
+            _taskList = new ObservableCollection<TodoistTask>();
             IsOnline = true;
 
             foreach (TodoistTask task in taskArray)
@@ -239,7 +240,15 @@ namespace TaskCaptain
 
         public void AddRange(IEnumerable<TodoistTask> collection)
         {
-            _taskList.AddRange(collection);
+            if(null == collection)
+            {
+                throw new ArgumentNullException("The collection to be added cannot be null.", nameof(collection));
+            }
+
+            foreach (TodoistTask task in collection)
+            {
+                Add(task);
+            }
         }
 
         public void Clear()
@@ -261,7 +270,7 @@ namespace TaskCaptain
         {
             return _taskList.Remove(toRemove);
         }
-
+/*
         public void SortById()
         {
             _taskList.Sort(_sortTasksById);
@@ -286,7 +295,7 @@ namespace TaskCaptain
         {
             _taskList.Sort(_sortTasksByDue);
         }
-
+*/
         public IEnumerator GetEnumerator()
         {
             return _taskList.GetEnumerator();

@@ -97,7 +97,7 @@ namespace TaskCaptain
         {
             return _projectList.Remove(toRemove);
         }
-
+/*
         public void SortById()
         {
             _projectList.Sort(_sortProjectsById);
@@ -112,7 +112,7 @@ namespace TaskCaptain
         {
             _projectList.Sort(_sortProjectsByName);
         }
-
+*/
         public IEnumerator GetEnumerator()
         {
             return _projectList.GetEnumerator();
