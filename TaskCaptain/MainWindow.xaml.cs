@@ -60,9 +60,32 @@ namespace TaskCaptain
             _todoistAcct = new TodoistAcct(restApiToken, getProjectsList.ToArray());
         }
 
+        private void SyncTodoistAccount()
+        {
+            string getProjectsString = _todoistClient.GetStringAsync(new Uri(_todoistEndpoint + "/projects")).Result;
+            string getTasksString = _todoistClient.GetStringAsync(new Uri(_todoistEndpoint + "/tasks")).Result;
+            List<TodoistProject> getProjectsList = JsonConvert.DeserializeObject<List<TodoistProject>>(getProjectsString);
+            List<TodoistTask> getTasksList = JsonConvert.DeserializeObject<List<TodoistTask>>(getTasksString);
+
+            //place each task in it's corresponding project
+            foreach (TodoistTask taskItem in getTasksList)
+            {
+                foreach (TodoistProject projectItem in getProjectsList)
+                {
+                    if (projectItem.Id == taskItem.ProjectId)
+                    {
+                        projectItem.Add(taskItem);
+                        break;
+                    }
+                }
+            }
+
+            _todoistAcct = new TodoistAcct(_todoistAcct.ApiToken, getProjectsList.ToArray());
+        }
+
         private void SyncButton_Click(object sender, RoutedEventArgs e)
         {
-
+            SyncTodoistAccount();
         }
     }
 }

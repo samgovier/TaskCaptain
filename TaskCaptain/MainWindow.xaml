@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <TabControl>
             <TabItem Header="Focus">
-                <DataGrid Grid.Column="1" Margin="10,20"></DataGrid>
+                <DataGrid Name="FocusGrid" Grid.Column="1" Margin="10,20"></DataGrid>
             </TabItem>
             <TabItem Header="Filter">
                 <Grid>
@@ -29,7 +29,7 @@
                         <TreeViewItem Header="7 Days" />
                         <Button VerticalAlignment="Bottom" Content="Add Filter..." Name="AddFilter" Margin="0,5"/>
                     </TreeView>
-                    <DataGrid Grid.Column="1" Margin="5"></DataGrid>
+                    <DataGrid Name="FilterGrid" Grid.Column="1" Margin="5"></DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="Projects">
@@ -46,7 +46,7 @@
                         </TreeViewItem>
                         <Button VerticalAlignment="Bottom" Content="Add Project..." Name="AddProject" Margin="0,5"/>
                     </TreeView>
-                    <DataGrid Grid.Column="1" Margin="5"></DataGrid>
+                    <DataGrid Name="ProjectsGrid" Grid.Column="1" Margin="5"></DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="Automation">
