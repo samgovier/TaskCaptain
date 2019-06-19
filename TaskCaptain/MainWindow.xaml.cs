@@ -29,9 +29,9 @@ namespace TaskCaptain
 
         public MainWindow()
         {
-            InitializeComponent();
             InitializeTodoistAccount();
-            DataContext = _todoistAcct;
+            InitializeComponent();
+            FocusGrid.ItemsSource = _todoistAcct[1];
         }
 
         private void InitializeTodoistAccount()
