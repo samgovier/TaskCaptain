@@ -29,14 +29,14 @@ namespace TaskCaptain
 
         public MainWindow()
         {
-            InitializeComponent();
             InitializeTodoistAccount();
-            DataContext = _todoistAcct;
+            InitializeComponent();
+            FocusGrid.ItemsSource = _todoistAcct[1];
         }
 
         private void InitializeTodoistAccount()
         {
-            string restApiToken = "4019f27f4a31859906535ff630dcac7ebb541062";
+            string restApiToken = "ede60c0039f7ed477d38bc1f15f762ac615fe8c8";
             _todoistClient = new HttpClient();
             _todoistClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + restApiToken);
             string getProjectsString = _todoistClient.GetStringAsync(new Uri(_todoistEndpoint + "/projects")).Result;
