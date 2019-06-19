@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskCaptain"
         mc:Ignorable="d"
-        Title="TaskCaptain" Height="675" Width="1200">
+        Title="TaskCaptain" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -13,11 +13,7 @@
         </Grid.RowDefinitions>
         <TabControl>
             <TabItem Header="Focus">
-                <DataGrid Name="FocusGrid"
-                          Grid.Column="1"
-                          Margin="10,20"
-                          IsReadOnly="True"
-                          AlternatingRowBackground="LightPink" AlternationCount="2"></DataGrid>
+                <DataGrid Name="FocusGrid" Grid.Column="1" Margin="10,20"></DataGrid>
             </TabItem>
             <TabItem Header="Filter">
                 <Grid>
