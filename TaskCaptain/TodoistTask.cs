@@ -202,6 +202,7 @@ namespace TaskCaptain
         /// <summary>
         /// IsCompleted is a boolean to state whether the task is completed or not
         /// </summary>
+        [JsonProperty("completed")]
         public bool IsCompleted { get; private set; }
 
         /// <summary>

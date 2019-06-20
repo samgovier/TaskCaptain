@@ -50,7 +50,26 @@
                         </TreeViewItem>
                         <Button VerticalAlignment="Bottom" Content="Add Project..." Name="AddProject" Margin="0,5"/>
                     </TreeView>
-                    <DataGrid Name="ProjectsGrid" Grid.Column="1" Margin="5"></DataGrid>
+                    <DataGrid Name="ProjectGrid"
+                              Grid.Column="1"
+                              Margin="5"
+                              IsReadOnly="True"
+                              AlternatingRowBackground="LightPink"
+                              AlternationCount="2"
+                              AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Header="✓"
+                                                    Binding="{Binding IsCompleted}" />
+                            <DataGridTextColumn Header="Desc."
+                                                Binding="{Binding Content}" />
+                            <DataGridTextColumn Header="p"
+                                                Binding="{Binding Priority}" />
+                            <DataGridTextColumn Header="Proj"
+                                                Binding="{Binding ProjectId}" />
+                            <DataGridTextColumn Header="Due"
+                                                Binding="{Binding Due.EntryString}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="Automation">
