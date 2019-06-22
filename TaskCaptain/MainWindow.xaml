@@ -6,6 +6,22 @@
         xmlns:local="clr-namespace:TaskCaptain"
         mc:Ignorable="d"
         Title="TaskCaptain" Height="675" Width="1200">
+    <Window.Resources>
+        <Style x:Key="StandardTaskGrid"  TargetType="DataGrid">
+            <Setter Property="Grid.Column"
+                    Value="1" />
+            <Setter Property="Margin"
+                    Value="5" />
+            <Setter Property="AlternatingRowBackground"
+                    Value="LightPink" />
+            <Setter Property="AlternationCount"
+                    Value="2" />
+            <Setter Property="AutoGenerateColumns"
+                    Value="False" />
+            <Setter Property="IsReadOnly"
+                    Value="True" />
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -33,7 +49,20 @@
                         <TreeViewItem Header="7 Days" />
                         <Button VerticalAlignment="Bottom" Content="Add Filter..." Name="AddFilter" Margin="0,5"/>
                     </TreeView>
-                    <DataGrid Name="FilterGrid" Grid.Column="1" Margin="5"></DataGrid>
+                    <DataGrid Name="FilterGrid" Style="{StaticResource StandardTaskGrid}">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Header="✓"
+                                                    Binding="{Binding IsCompleted, Mode=OneWay}"  />
+                            <DataGridTextColumn Header="Desc."
+                                                Binding="{Binding Content}" />
+                            <DataGridTextColumn Header="p"
+                                                Binding="{Binding Priority}" />
+                            <DataGridTextColumn Header="Proj"
+                                                Binding="{Binding ProjectId}" />
+                            <DataGridTextColumn Header="Due"
+                                                Binding="{Binding Due.EntryString}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="Projects">
@@ -50,16 +79,10 @@
                         </TreeViewItem>
                         <Button VerticalAlignment="Bottom" Content="Add Project..." Name="AddProject" Margin="0,5"/>
                     </TreeView>
-                    <DataGrid Name="ProjectGrid"
-                              Grid.Column="1"
-                              Margin="5"
-                              IsReadOnly="True"
-                              AlternatingRowBackground="LightPink"
-                              AlternationCount="2"
-                              AutoGenerateColumns="False">
+                    <DataGrid Name="ProjectGrid" Style="{StaticResource StandardTaskGrid}">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Header="✓"
-                                                    Binding="{Binding IsCompleted}" />
+                                                    Binding="{Binding IsCompleted, Mode=OneWay}"  />
                             <DataGridTextColumn Header="Desc."
                                                 Binding="{Binding Content}" />
                             <DataGridTextColumn Header="p"
