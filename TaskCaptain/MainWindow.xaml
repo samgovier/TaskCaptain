@@ -30,10 +30,18 @@
         <TabControl>
             <TabItem Header="Focus">
                 <DataGrid Name="FocusGrid"
-                          Grid.Column="1"
-                          Margin="10,20"
-                          IsReadOnly="True"
-                          AlternatingRowBackground="LightPink" AlternationCount="2"></DataGrid>
+                          Style="{StaticResource StandardTaskGrid}" Margin="10,20">
+                    <DataGridCheckBoxColumn Header="✓"
+                                                    Binding="{Binding IsCompleted, Mode=OneWay}" />
+                    <DataGridTextColumn Header="Desc."
+                                                Binding="{Binding Content}"  Width="600" MinWidth="100">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid>
             </TabItem>
             <TabItem Header="Filter">
                 <Grid>
@@ -54,9 +62,15 @@
                             <DataGridCheckBoxColumn Header="✓"
                                                     Binding="{Binding IsCompleted, Mode=OneWay}"  />
                             <DataGridTextColumn Header="Desc."
-                                                Binding="{Binding Content}" />
+                                                Binding="{Binding Content}"  Width="600" MinWidth="100">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
                             <DataGridTextColumn Header="p"
-                                                Binding="{Binding Priority}" />
+                                                Binding="{Binding Priority}" MaxWidth="50" MinWidth="50" Width="50"  />
                             <DataGridTextColumn Header="Proj"
                                                 Binding="{Binding ProjectId}" />
                             <DataGridTextColumn Header="Due"
@@ -84,7 +98,13 @@
                             <DataGridCheckBoxColumn Header="✓"
                                                     Binding="{Binding IsCompleted, Mode=OneWay}"  />
                             <DataGridTextColumn Header="Desc."
-                                                Binding="{Binding Content}" />
+                                                Binding="{Binding Content}"  Width="600" MinWidth="100">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
                             <DataGridTextColumn Header="p"
                                                 Binding="{Binding Priority}" />
                             <DataGridTextColumn Header="Proj"
