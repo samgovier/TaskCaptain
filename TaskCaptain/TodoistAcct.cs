@@ -5,10 +5,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace TaskCaptain
 {
-    class TodoistAcct : ICollection<TodoistProject>, IEnumerable
+    class TodoistAcct : ICollection<TodoistProject>, IEnumerable, INotifyPropertyChanged, INotifyPropertyChanging
     {
         #region Config
 
@@ -26,6 +27,9 @@ namespace TaskCaptain
         SortProjectsById _sortProjectsById = new SortProjectsById();
         SortProjectsByName _sortProjectsByName = new SortProjectsByName();
         SortProjectsByOrder _sortProjectsByOrder = new SortProjectsByOrder();
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangingEventHandler PropertyChanging;
 
         /// <summary>
         /// Count is the amount of Projects in the account

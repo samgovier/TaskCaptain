@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace TaskCaptain
 {
@@ -14,7 +15,7 @@ namespace TaskCaptain
     /// TodoistProject represents the Project objects as they exist in the Todoist infrastructure, along with additional functionality
     /// </summary>
     [JsonObject]
-    public class TodoistProject : ICollection<TodoistTask>, IEnumerable
+    public class TodoistProject : ICollection<TodoistTask>, IEnumerable, INotifyPropertyChanged, INotifyPropertyChanging
     {
         #region Config
 
@@ -36,6 +37,9 @@ namespace TaskCaptain
         SortTasksByPriority _sortTasksByPriority = new SortTasksByPriority();
         SortTasksByContent _sortTasksByContent = new SortTasksByContent();
         SortTasksByDue _sortTasksByDue = new SortTasksByDue();
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangingEventHandler PropertyChanging;
 
         /// <summary>
         /// Id is the id of the project, as listed in Todoist
