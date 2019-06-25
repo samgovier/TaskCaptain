@@ -5,7 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaskCaptain"
         mc:Ignorable="d"
-        Title="TaskCaptain" Height="450" Width="800">
+        Title="TaskCaptain" Height="675" Width="1200" MinWidth="300" MinHeight="350">
+    <Window.Resources>
+        <Style x:Key="StandardTaskGrid"  TargetType="DataGrid">
+            <Setter Property="Grid.Column"
+                    Value="1" />
+            <Setter Property="Margin"
+                    Value="5" />
+            <Setter Property="AlternatingRowBackground"
+                    Value="LightPink" />
+            <Setter Property="AlternationCount"
+                    Value="2" />
+            <Setter Property="AutoGenerateColumns"
+                    Value="False" />
+            <Setter Property="IsReadOnly"
+                    Value="False" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Left" />
+            <Setter Property="Width"
+                    Value="Auto" />
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -13,7 +33,21 @@
         </Grid.RowDefinitions>
         <TabControl>
             <TabItem Header="Focus">
-                <DataGrid Grid.Column="1" Margin="10,20"></DataGrid>
+                <DataGrid Name="FocusGrid"
+                          Style="{StaticResource StandardTaskGrid}"  Margin="10,20" HorizontalAlignment="Center">
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn Header="✓"
+                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                        <DataGridTextColumn Header="Description"
+                                                Binding="{Binding Content}"  Width="Auto" MinWidth="600" MaxWidth="1800" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
             <TabItem Header="Filter">
                 <Grid>
@@ -27,9 +61,28 @@
                         <TreeViewItem Header="Saturday" />
                         <TreeViewItem Header="Rest Of Week" />
                         <TreeViewItem Header="7 Days" />
-                        <Button VerticalAlignment="Bottom" Content="Add Filter..." Name="AddFilter" Margin="0,5"/>
+                        <Button VerticalAlignment="Bottom" Content="Add Filter..." Name="AddFilter" Margin="0,5" />
                     </TreeView>
-                    <DataGrid Grid.Column="1" Margin="5"></DataGrid>
+                    <DataGrid Name="FilterGrid" Style="{StaticResource StandardTaskGrid}" Width="Auto">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Header="✓"
+                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                            <DataGridTextColumn Header="Description"
+                                                Binding="{Binding Content}"  Width="600" MinWidth="100">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="p"
+                                                Binding="{Binding Priority}" MaxWidth="20" Width="20" />
+                            <DataGridTextColumn Header="Project"
+                                                Binding="{Binding ProjectId}" MinWidth="50" />
+                            <DataGridTextColumn Header="Due"
+                                                Binding="{Binding Due.EntryString}" MinWidth="50" />
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="Projects">
@@ -44,9 +97,28 @@
                         <TreeViewItem Header="Work">
                             <TreeViewItem Header="Hunt" />
                         </TreeViewItem>
-                        <Button VerticalAlignment="Bottom" Content="Add Project..." Name="AddProject" Margin="0,5"/>
+                        <Button VerticalAlignment="Bottom" Content="Add Project..." Name="AddProject" Margin="0,5" />
                     </TreeView>
-                    <DataGrid Grid.Column="1" Margin="5"></DataGrid>
+                    <DataGrid Name="ProjectGrid" Style="{StaticResource StandardTaskGrid}" Width="Auto">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Header="✓"
+                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                            <DataGridTextColumn Header="Description"
+                                                Binding="{Binding Content}"  Width="600" MinWidth="100">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="p"
+                                                Binding="{Binding Priority}" MaxWidth="20" Width="20" />
+                            <DataGridTextColumn Header="Project"
+                                                Binding="{Binding ProjectId}" MinWidth="50" />
+                            <DataGridTextColumn Header="Due"
+                                                Binding="{Binding Due.EntryString}" MinWidth="50" />
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="Automation">

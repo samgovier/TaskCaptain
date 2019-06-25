@@ -30,6 +30,7 @@ namespace TaskCaptain
         /// Id is the id of the task, as listed in Todoist
         /// Null if offline
         /// </summary>
+        [JsonProperty(nameof(Id))]
         public long? Id
         {
             get
@@ -54,6 +55,7 @@ namespace TaskCaptain
         /// ProjectId is the id of the project this task is assigned to. MUST match with an existing TodoistProject.Id
         /// Null if offline
         /// </summary>
+        [JsonProperty("project_id")]
         public long? ProjectId
         {
             get
@@ -78,6 +80,7 @@ namespace TaskCaptain
         /// <summary>
         /// Content is the actual string content of the task: what's gotta be done?
         /// </summary>
+        [JsonProperty(nameof(Content))]
         public string Content
         {
             get
@@ -101,6 +104,7 @@ namespace TaskCaptain
         /// Order is an int signifying where in the project the task is ordered
         /// Null if offline
         /// </summary>
+        [JsonProperty(nameof(Order))]
         public int? Order
         {
             get
@@ -124,7 +128,8 @@ namespace TaskCaptain
         /// <summary>
         /// Indent is what tier the task belongs on
         /// Null if offline
-        /// </summary>
+        /// </summary
+        [JsonProperty(nameof(Indent))]
         public int? Indent
         {
             get
@@ -149,6 +154,7 @@ namespace TaskCaptain
         /// <summary>
         /// Priority is 1-4, the Todoist priority of the task
         /// </summary>
+        [JsonProperty(nameof(Priority))]
         public int Priority
         {
             get
@@ -172,11 +178,13 @@ namespace TaskCaptain
         /// <summary>
         /// Due is when the project is due to be completed. Can be null if there's no due date.
         /// </summary>
+        [JsonProperty(nameof(Due))]
         public TodoistDue Due { get; set; }
 
         /// <summary>
         /// WebUrl is the direct url to access the task in the Todoist web API
         /// </summary>
+        [JsonProperty("url")]
         public string WebUrl
         {
             get
@@ -194,6 +202,7 @@ namespace TaskCaptain
         /// <summary>
         /// IsCompleted is a boolean to state whether the task is completed or not
         /// </summary>
+        [JsonProperty("completed")]
         public bool IsCompleted { get; private set; }
 
         /// <summary>
