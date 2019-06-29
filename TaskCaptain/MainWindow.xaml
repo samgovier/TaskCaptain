@@ -216,7 +216,15 @@
                     </TreeViewItem>
                 </TreeView>
             </TabItem>
-            <TabItem Header="Help" />
+            <TabItem Header="Help">
+                    <GroupBox Header="Help" FontSize="16">
+                        <!-- <Grid /> maybe -->
+                        <TextBlock>
+                            For documentation about functionality: https://github.com/samgovier/TaskCaptain
+                            You can open any issues and questions on my GitHub page there.
+                        </TextBlock>
+                    </GroupBox>
+            </TabItem>
         </TabControl>
         <StatusBar VerticalAlignment="Bottom" Grid.Row="1">
             <StatusBarItem>
