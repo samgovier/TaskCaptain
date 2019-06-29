@@ -32,6 +32,7 @@ namespace TaskCaptain
             InitializeComponent();
             FocusGrid.ItemsSource = _todoistAcct[1];
             ProjectGrid.ItemsSource = _todoistAcct[1];
+            ExpEnumerateGrid.ItemsSource = _todoistAcct[1];
         }
 
         private void InitializeTodoistAccount()
