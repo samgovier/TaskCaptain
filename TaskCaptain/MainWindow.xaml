@@ -220,7 +220,7 @@
                     <GroupBox Header="Help" FontSize="16">
                         <!-- <Grid /> maybe -->
                         <TextBlock>
-                            For documentation about functionality: https://github.com/samgovier/TaskCaptain
+                            For documentation about functionality: https://github.com/samgovier/TaskCaptain<LineBreak/>
                             You can open any issues and questions on my GitHub page there.
                         </TextBlock>
                     </GroupBox>
