@@ -135,6 +135,19 @@ namespace TaskCaptain
             }
         }
 
+        public TodoistProject GetProjectById(int projId)
+        {
+            foreach(TodoistProject project in _projectList)
+            {
+                if(projId == project.Id)
+                {
+                    return project;
+                }
+            }
+
+            return null;
+        }
+
         #endregion
     }
 }
