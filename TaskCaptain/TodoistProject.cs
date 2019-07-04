@@ -330,11 +330,11 @@ namespace TaskCaptain
             TodoistTask[] tasksToAdd = new TodoistTask[12];
             for (int i = 0; i < tasksToAdd.Length; i++)
             {
-                int monthDelta = DateTime.Today.Month + i;
-                int currentMonth = monthDelta % 12;
-                int currentYear = DateTime.Today.Year + (int)Math.Floor((double)monthDelta / 12);
-                int lastDay = DateTime.DaysInMonth(currentYear, currentMonth);
-                DateTime taskDate = new DateTime(currentYear, currentMonth, lastDay);
+                // currentLoc is the current year and time we're getting a date from
+                DateTime currentLoc = DateTime.Today.AddMonths(i);
+                
+                // taskDate pulls the almost correct date: next month day one, minus one
+                DateTime taskDate = (new DateTime(currentLoc.Year, currentLoc.Month + 1, 1)).AddDays(-1);
                 do
                 {
                     if (TodoistDue.IsWeekend(taskDate) || TodoistDue.IsHoliday(taskDate))
