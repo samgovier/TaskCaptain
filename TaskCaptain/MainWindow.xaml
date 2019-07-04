@@ -27,6 +27,22 @@
             <Setter Property="FontSize"
                     Value="12" />
         </Style>
+        <Style x:Key="ProjectComboBox" TargetType="ComboBox">
+            <Setter Property="HorizontalAlignment"
+                    Value="Left" />
+            <Setter Property="VerticalAlignment"
+                    Value="Bottom" />
+            <Setter Property="Grid.Column"
+                    Value="1" />
+            <Setter Property="MinWidth"
+                    Value="50" />
+            <Setter Property="Height"
+                    Value="Auto" />
+            <Setter Property="Margin"
+                    Value="5" />
+            <Setter Property="DisplayMemberPath"
+                    Value="Name" />
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -139,15 +155,15 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <TreeViewItem Header="Project:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" />
-                            <ComboBox Name="LastWkPrjCombo" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" MinWidth="50" Height="Auto" Margin="5" DisplayMemberPath="Name" />
+                            <ComboBox Name="LastWkPrjCombo" Style="{StaticResource ProjectComboBox}" />
                             <TreeViewItem Header="Description:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Grid.Row="1" />
-                            <TextBox Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="250" Height="Auto" Margin="5" Grid.Row="1" />
+                            <TextBox Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="250" Height="Auto" Margin="5" Grid.Row="1" AcceptsReturn="False" />
                             <TreeViewItem Header="Priority:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Grid.Row="2" />
                             <ComboBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5" Width="45">
-                                <ComboBoxItem Content="p1" />
-                                <ComboBoxItem Content="p2" />
-                                <ComboBoxItem Content="p3" />
-                                <ComboBoxItem Content="p4" />
+                                <ComboBoxItem Content="1" />
+                                <ComboBoxItem Content="2" />
+                                <ComboBoxItem Content="3" />
+                                <ComboBoxItem Content="4" />
                             </ComboBox>
                             <Button Content="Start Automation" Grid.Column="1" Grid.Row="3" Margin="5" HorizontalAlignment="Left" />
                         </Grid>
@@ -227,7 +243,7 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <TreeViewItem Header="Project to Clear:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" />
-                            <ComboBox Name="BacktoInbPrjCombo" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" MinWidth="50" Height="Auto" Margin="5" DisplayMemberPath="Name" />
+                            <ComboBox Name="BacktoInbPrjCombo" Style="{StaticResource ProjectComboBox}" />
                             <Button Content="Start Automation" Grid.Column="1" Grid.Row="1" Margin="5" HorizontalAlignment="Left" />
                         </Grid>
                     </TreeViewItem>
