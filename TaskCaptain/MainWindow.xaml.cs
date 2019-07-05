@@ -32,7 +32,7 @@ namespace TaskCaptain
             InitializeComponent();
             FocusGrid.ItemsSource = _todoistAcct[1];
             ProjectGrid.ItemsSource = _todoistAcct[1];
-            ExpEnumerateGrid.ItemsSource = DateRngEnumerateGrid.ItemsSource = _todoistAcct[1];
+            RecurEnumerateGrid.ItemsSource = DateRngSchGrid.ItemsSource = _todoistAcct[1];
             LastWkPrjCombo.ItemsSource = BacktoInbPrjCombo.ItemsSource = _todoistAcct;
         }
 
@@ -88,6 +88,26 @@ namespace TaskCaptain
         private void SyncButton_Click(object sender, RoutedEventArgs e)
         {
             SyncTodoistAccount();
+        }
+
+        private void LastWkRunAutomation_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DateRngSchRunAutomation_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BackToInbRunAutomation_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RecurEnumerateRunAutomation_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
