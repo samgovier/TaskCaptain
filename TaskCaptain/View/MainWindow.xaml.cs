@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Http;
 using Newtonsoft.Json;
+using TodoistAutomation;
 
 namespace TaskCaptain
 {
@@ -92,22 +93,22 @@ namespace TaskCaptain
 
         private void LastWkRunAutomation_Click(object sender, RoutedEventArgs e)
         {
-            TodoistProject.CreateLastWorkdayTasks(LastWkDescBox.Text, (int)LastWkPriCombo.SelectedItem, (TodoistProject)LastWkPrjCombo.SelectedItem);
+            CreateLastWorkdayTasks(LastWkDescBox.Text, (int)LastWkPriCombo.SelectedItem, (TodoistProject)LastWkPrjCombo.SelectedItem);
         }
 
         private void DateRngSchRunAutomation_Click(object sender, RoutedEventArgs e)
         {
-            //TodoistProject.ScheduleToWeekStart(null);
+            //ScheduleToWeekStart(null);
         }
 
         private void BackToInbRunAutomation_Click(object sender, RoutedEventArgs e)
         {
-            TodoistProject.ClearToProject(_todoistAcct[0], (TodoistProject)BacktoInbPrjCombo.SelectedItem);
+            ClearToProject(_todoistAcct[0], (TodoistProject)BacktoInbPrjCombo.SelectedItem);
         }
 
         private void RecurEnumerateRunAutomation_Click(object sender, RoutedEventArgs e)
         {
-            //TodoistProject.TranslateRecurrence(null, null);
+            //TranslateRecurrence(null, null);
         }
     }
 }
