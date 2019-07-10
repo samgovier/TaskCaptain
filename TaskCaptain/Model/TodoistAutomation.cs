@@ -21,9 +21,9 @@ namespace TaskCaptain
         /// <summary>
         /// Create tasks on the last workday of each month.
         /// </summary>
-        public static void CreateLastWorkdayTasks(string subject, int priority, TodoistProject destProject)
+        public static void CreateLastWorkdayTasks(string subject, int priority, TodoistProject destProject, int monthSpan)
         {
-            TodoistTask[] tasksToAdd = new TodoistTask[12];
+            TodoistTask[] tasksToAdd = new TodoistTask[monthSpan];
             for (int i = 0; i < tasksToAdd.Length; i++)
             {
                 // currentLoc is the current year and time we're getting a date from
@@ -82,12 +82,11 @@ namespace TaskCaptain
             }
             else
             {
-                //foreach(TodoistTask task in oldProject)
-                //{
-                //    incomingProject.Add(task);
-                //    oldProject.Remove(task);
-                //    // REST ACTION
-                //}
+                foreach(TodoistTask task in oldProject)
+                {
+                   incomingProject.Add(task);
+                   oldProject.Remove(task);
+                }
             }
         }
 
