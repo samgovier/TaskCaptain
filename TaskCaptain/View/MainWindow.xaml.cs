@@ -92,7 +92,7 @@ namespace TaskCaptain
 
         private void LastWkRunAutomation_Click(object sender, RoutedEventArgs e)
         {
-            TodoistAutomation.CreateLastWorkdayTasks(LastWkDescBox.Text, (int)LastWkPriCombo.SelectedItem, (TaskCaptain.TodoistProject)LastWkPrjCombo.SelectedItem, 12);
+            TodoistAutomation.CreateLastWorkdayTasks(LastWkDescBox.Text, Convert.ToInt32(LastWkPriCombo.SelectedItem.ToString().Split(' ')[1]), (TodoistProject)LastWkPrjCombo.SelectedItem, 12);
         }
 
         private void DateRngSchRunAutomation_Click(object sender, RoutedEventArgs e)
