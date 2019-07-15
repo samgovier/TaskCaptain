@@ -153,6 +153,7 @@
                                 <RowDefinition />
                                 <RowDefinition />
                                 <RowDefinition />
+                                <RowDefinition />
                             </Grid.RowDefinitions>
                             <TreeViewItem Header="Project:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" />
                             <ComboBox Name="LastWkPrjCombo" Style="{StaticResource ProjectComboBox}" />
@@ -165,7 +166,9 @@
                                 <ComboBoxItem Content="3" />
                                 <ComboBoxItem Content="4" />
                             </ComboBox>
-                            <Button Name="LastWkRunAutomation" Content="Start Automation" Grid.Column="1" Grid.Row="3" Margin="5" HorizontalAlignment="Left" Click="LastWkRunAutomation_Click" />
+                            <TreeViewItem Header="Amount of Months from Today:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Grid.Row="3" />
+                            <TextBox Name="LastWkRngBox" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Height="Auto" Margin="5" Grid.Row="3" AcceptsReturn="False" AcceptsTab="False" />
+                            <Button Name="LastWkRunAutomation" Content="Start Automation" Grid.Column="1" Grid.Row="4" Margin="5" HorizontalAlignment="Left" Click="LastWkRunAutomation_Click" />
                         </Grid>
                     </TreeViewItem>
                     <TreeViewItem Header="Schedule to Week Start">
