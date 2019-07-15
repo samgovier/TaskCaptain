@@ -85,8 +85,9 @@ namespace TaskCaptain
                 foreach(TodoistTask task in oldProject)
                 {
                    incomingProject.Add(task);
-                   oldProject.Remove(task);
                 }
+
+                oldProject.Clear();
             }
         }
 
