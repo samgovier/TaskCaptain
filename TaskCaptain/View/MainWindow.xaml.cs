@@ -107,7 +107,10 @@ namespace TaskCaptain
 
         private void RecurEnumerateRunAutomation_Click(object sender, RoutedEventArgs e)
         {
-            //TranslateRecurrence(null, null);
+            foreach(TodoistTask recurringTask in RecurEnumerateGrid.SelectedItems)
+            {
+                TodoistAutomation.TranslateRecurrence(recurringTask, new TimeSpan());
+            }
         }
     }
 }
