@@ -30,7 +30,7 @@ namespace TaskCaptain
                 DateTime currentLoc = DateTime.Today.AddMonths(i);
                 
                 // taskDate pulls the almost correct date: next month day one, minus one
-                DateTime taskDate = (new DateTime(currentLoc.Year, currentLoc.Month + 1, 1)).AddDays(-1);
+                DateTime taskDate = (new DateTime(currentLoc.Year, currentLoc.AddMonths(1).Month, 1)).AddDays(-1);
                 do
                 {
                     if (TodoistDue.IsWeekend(taskDate) || TodoistDue.IsHoliday(taskDate))
