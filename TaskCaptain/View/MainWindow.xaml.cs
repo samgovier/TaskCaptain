@@ -97,7 +97,9 @@ namespace TaskCaptain
 
         private void DateRngSchRunAutomation_Click(object sender, RoutedEventArgs e)
         {
-            //ScheduleToWeekStart(null);
+            TodoistTask[] tasksToMove = new TodoistTask[DateRngSchGrid.Items.Count];
+            DateRngSchGrid.Items.CopyTo(tasksToMove, 0);
+            TodoistAutomation.ScheduleToWeekStart(tasksToMove);
         }
 
         private void BackToInbRunAutomation_Click(object sender, RoutedEventArgs e)
@@ -110,6 +112,16 @@ namespace TaskCaptain
             foreach(TodoistTask recurringTask in RecurEnumerateGrid.SelectedItems)
             {
                 TodoistAutomation.TranslateRecurrence(recurringTask, new TimeSpan());
+            }
+        }
+
+        private void DateRngSchTasks_Click(object sender, RoutedEventArgs e)
+        {
+            List<TodoistTask> tasksToMove = new List<TodoistTask>();
+
+            foreach (DateTime selectedDate in DateRngSchCal.SelectedDates)
+            {
+                tasksToMove.Add(_todoistAcct.GetTasksForDate(selectedDate));
             }
         }
     }
