@@ -148,6 +148,25 @@ namespace TaskCaptain
             return null;
         }
 
+        public TodoistTask[] GetTasksForDate(DateTime selectedDate)
+        {
+            List<TodoistTask> dateTasks = new List<TodoistTask>();
+
+            foreach(TodoistProject project in _projectList)
+            {
+                foreach(TodoistTask task in project)
+                {
+                    task.Due.TryParseToDateTime(out DateTime taskDT);
+                    if (selectedDate.Equals(taskDT))
+                    {
+                        dateTasks.Add(task);
+                    }
+                }
+            }
+
+            return dateTasks.ToArray();
+        }
+
         #endregion
     }
 }
