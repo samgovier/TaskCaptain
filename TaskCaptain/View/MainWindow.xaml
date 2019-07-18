@@ -187,6 +187,7 @@
                             <TreeViewItem Header="Date Range:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" />
                             <Calendar Name="DateRngSchCal" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5" SelectionMode="MultipleRange" />
                             <Button Name="DateRngSchTasks" Content="Show Relevant Tasks" Grid.Column="1" Grid.Row="1" Margin="5" HorizontalAlignment="Left"  Click="DateRngSchTasks_Click" />
+                            <TreeViewItem Header="Select Tasks to Reschedule:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Grid.Row="2" Visibility="Visible" />
                             <DataGrid Name="DateRngSchGrid" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource StandardTaskGrid}" HorizontalAlignment="Center" MaxHeight="200" Visibility="Visible" >
                                 <DataGrid.Columns>
                                     <DataGridCheckBoxColumn Header="✓"

@@ -95,11 +95,21 @@ namespace TaskCaptain
             TodoistAutomation.CreateLastWorkdayTasks(LastWkDescBox.Text, Convert.ToInt32(LastWkPriCombo.SelectedItem.ToString().Split(' ')[1]), (TodoistProject)LastWkPrjCombo.SelectedItem, Convert.ToInt32(LastWkRngBox.Text));
         }
 
+        private void DateRngSchTasks_Click(object sender, RoutedEventArgs e)
+        {
+            List<TodoistTask> tasksToMove = new List<TodoistTask>();
+
+            foreach (DateTime selectedDate in DateRngSchCal.SelectedDates)
+            {
+                tasksToMove.AddRange(_todoistAcct.GetTasksForDate(selectedDate));
+            }
+
+            DateRngSchGrid.ItemsSource = tasksToMove;
+        }
+
         private void DateRngSchRunAutomation_Click(object sender, RoutedEventArgs e)
         {
-            TodoistTask[] tasksToMove = new TodoistTask[DateRngSchGrid.Items.Count];
-            DateRngSchGrid.Items.CopyTo(tasksToMove, 0);
-            TodoistAutomation.ScheduleToWeekStart(tasksToMove);
+            TodoistAutomation.ScheduleToWeekStart((TodoistTask[])DateRngSchGrid.SelectedItems);
         }
 
         private void BackToInbRunAutomation_Click(object sender, RoutedEventArgs e)
@@ -112,16 +122,6 @@ namespace TaskCaptain
             foreach(TodoistTask recurringTask in RecurEnumerateGrid.SelectedItems)
             {
                 TodoistAutomation.TranslateRecurrence(recurringTask, new TimeSpan());
-            }
-        }
-
-        private void DateRngSchTasks_Click(object sender, RoutedEventArgs e)
-        {
-            List<TodoistTask> tasksToMove = new List<TodoistTask>();
-
-            foreach (DateTime selectedDate in DateRngSchCal.SelectedDates)
-            {
-                tasksToMove.AddRange(_todoistAcct.GetTasksForDate(selectedDate));
             }
         }
     }
