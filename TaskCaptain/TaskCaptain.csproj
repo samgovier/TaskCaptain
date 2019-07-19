@@ -61,13 +61,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="TodoistAcct.cs" />
-    <Compile Include="TodoistDue.cs" />
-    <Compile Include="TodoistOfflineException.cs" />
-    <Compile Include="TodoistProject.cs" />
-    <Compile Include="TodoistSortBy.cs" />
-    <Compile Include="TodoistTask.cs" />
-    <Page Include="MainWindow.xaml">
+    <Compile Include="Model\TodoistAcct.cs" />
+    <Compile Include="Model\TodoistDue.cs" />
+    <Compile Include="Model\TodoistOfflineException.cs" />
+    <Compile Include="Model\TodoistProject.cs" />
+    <Compile Include="Model\TodoistSortBy.cs" />
+    <Compile Include="Model\TodoistTask.cs" />
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -75,7 +75,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="TodoistAutomation.cs" />
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

@@ -135,6 +135,42 @@ namespace TaskCaptain
             }
         }
 
+        public TodoistProject GetProjectById(int projId)
+        {
+            foreach(TodoistProject project in _projectList)
+            {
+                if(projId == project.Id)
+                {
+                    return project;
+                }
+            }
+
+            return null;
+        }
+
+        public TodoistTask[] GetTasksForDate(DateTime selectedDate)
+        {
+            List<TodoistTask> dateTasks = new List<TodoistTask>();
+
+            foreach(TodoistProject project in _projectList)
+            {
+                foreach(TodoistTask task in project)
+                {
+                    if (null != task.Due)
+                    {
+                        task.Due.TryParseToDateTime(out DateTime taskDT);
+
+                        if (selectedDate.Equals(taskDT))
+                        {
+                            dateTasks.Add(task);
+                        }
+                    }
+                }
+            }
+
+            return dateTasks.ToArray();
+        }
+
         #endregion
     }
 }

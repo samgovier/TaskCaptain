@@ -1,0 +1,275 @@
+﻿<Window x:Class="TaskCaptain.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TaskCaptain"
+        mc:Ignorable="d"
+        Title="TaskCaptain" Height="675" Width="1200" MinWidth="300" MinHeight="350">
+    <Window.Resources>
+        <Style x:Key="StandardTaskGrid"  TargetType="DataGrid">
+            <Setter Property="Grid.Column"
+                    Value="1" />
+            <Setter Property="Margin"
+                    Value="5" />
+            <Setter Property="AlternatingRowBackground"
+                    Value="LightPink" />
+            <Setter Property="AlternationCount"
+                    Value="2" />
+            <Setter Property="AutoGenerateColumns"
+                    Value="False" />
+            <Setter Property="IsReadOnly"
+                    Value="True" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Left" />
+            <Setter Property="Width"
+                    Value="Auto" />
+            <Setter Property="FontSize"
+                    Value="12" />
+        </Style>
+        <Style x:Key="ProjectComboBox" TargetType="ComboBox">
+            <Setter Property="HorizontalAlignment"
+                    Value="Left" />
+            <Setter Property="VerticalAlignment"
+                    Value="Bottom" />
+            <Setter Property="Grid.Column"
+                    Value="1" />
+            <Setter Property="MinWidth"
+                    Value="50" />
+            <Setter Property="Height"
+                    Value="Auto" />
+            <Setter Property="Margin"
+                    Value="5" />
+            <Setter Property="DisplayMemberPath"
+                    Value="Name" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="22" />
+        </Grid.RowDefinitions>
+        <TabControl>
+            <TabItem Header="Focus">
+                <DataGrid Name="FocusGrid"
+                          Style="{StaticResource StandardTaskGrid}"  Margin="10,20" HorizontalAlignment="Center">
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn Header="✓"
+                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                        <DataGridTextColumn Header="Description"
+                                                Binding="{Binding Content}"  Width="Auto" MinWidth="600" MaxWidth="1800" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style>
+                                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Filter">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <TreeView>
+                        <TreeViewItem Header="Today" />
+                        <TreeViewItem Header="Tomorrow" />
+                        <TreeViewItem Header="Saturday" />
+                        <TreeViewItem Header="Rest Of Week" />
+                        <TreeViewItem Header="7 Days" />
+                        <Button VerticalAlignment="Bottom" Content="Add Filter..." Name="AddFilter" Margin="0,5" />
+                    </TreeView>
+                    <DataGrid Name="FilterGrid" Style="{StaticResource StandardTaskGrid}" Width="Auto">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Header="✓"
+                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                            <DataGridTextColumn Header="Description"
+                                                Binding="{Binding Content}"  Width="600" MinWidth="100">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="p"
+                                                Binding="{Binding Priority}" MaxWidth="20" Width="20" />
+                            <DataGridTextColumn Header="Project"
+                                                Binding="{Binding ProjectId}" MinWidth="50" />
+                            <DataGridTextColumn Header="Due"
+                                                Binding="{Binding Due.EntryString}" MinWidth="50" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Projects">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <TreeView>
+                        <TreeViewItem Header="Inbox" />
+                        <TreeViewItem Header="Personal" />
+                        <TreeViewItem Header="Work">
+                            <TreeViewItem Header="Hunt" />
+                        </TreeViewItem>
+                        <Button VerticalAlignment="Bottom" Content="Add Project..." Name="AddProject" Margin="0,5" />
+                    </TreeView>
+                    <DataGrid Name="ProjectGrid" Style="{StaticResource StandardTaskGrid}" Width="Auto">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Header="✓"
+                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                            <DataGridTextColumn Header="Description"
+                                                Binding="{Binding Content}"  Width="600" MinWidth="100">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style>
+                                        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="p"
+                                                Binding="{Binding Priority}" MaxWidth="20" Width="20" />
+                            <DataGridTextColumn Header="Project"
+                                                Binding="{Binding ProjectId}" MinWidth="50" />
+                            <DataGridTextColumn Header="Due"
+                                                Binding="{Binding Due.EntryString}" MinWidth="50" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Automation">
+                <TreeView Margin="10" FontSize="16">
+                    <TreeViewItem Header="Create Task: Last Weekday of Month">
+                        <TreeViewItem Header="This automated task will create a task on the last weekday of each month." />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TreeViewItem Header="Project:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" />
+                            <ComboBox Name="LastWkPrjCombo" Style="{StaticResource ProjectComboBox}" />
+                            <TreeViewItem Header="Description:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Grid.Row="1" />
+                            <TextBox Name="LastWkDescBox" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="250" Height="Auto" Margin="5" Grid.Row="1" AcceptsReturn="False" />
+                            <TreeViewItem Header="Priority:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Grid.Row="2" />
+                            <ComboBox Name="LastWkPriCombo" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5" Width="45">
+                                <ComboBoxItem Content="1" />
+                                <ComboBoxItem Content="2" />
+                                <ComboBoxItem Content="3" />
+                                <ComboBoxItem Content="4" />
+                            </ComboBox>
+                            <TreeViewItem Header="Amount of Months from Today:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Grid.Row="3" />
+                            <TextBox Name="LastWkRngBox" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="100" Height="Auto" Margin="5" Grid.Row="3" AcceptsReturn="False" AcceptsTab="False" />
+                            <Button Name="LastWkRunAutomation" Content="Start Automation" Grid.Column="1" Grid.Row="4" Margin="5" HorizontalAlignment="Left" Click="LastWkRunAutomation_Click" />
+                        </Grid>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Schedule to Week Start">
+                        <TreeViewItem Header="This automated task will move all tasks in a time period to either Monday or Sunday." />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TreeViewItem Header="Date Range:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" />
+                            <Calendar Name="DateRngSchCal" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5" SelectionMode="MultipleRange" />
+                            <Button Name="DateRngSchTasks" Content="Show Relevant Tasks" Grid.Column="1" Grid.Row="1" Margin="5" HorizontalAlignment="Left"  Click="DateRngSchTasks_Click" />
+                            <TreeViewItem Header="Select Tasks to Reschedule:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Grid.Row="2" Visibility="Visible" />
+                            <DataGrid Name="DateRngSchGrid" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource StandardTaskGrid}" HorizontalAlignment="Center" MaxHeight="200" Visibility="Visible" >
+                                <DataGrid.Columns>
+                                    <DataGridCheckBoxColumn Header="✓"
+                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                                    <DataGridTextColumn Header="Description"
+                                                Binding="{Binding Content}"  Width="Auto" MinWidth="600" MaxWidth="1800" >
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style>
+                                                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Button Name="DateRngSchRunAutomation" Content="Start Automation" Grid.Column="1" Grid.Row="3" Margin="5" HorizontalAlignment="Left" Visibility="Visible" Click="DateRngSchRunAutomation_Click" />
+                        </Grid>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Enumerate Task from Recurrence">
+                        <TreeViewItem Header="This automated task will enumerate a task from it's recurrence into explicit tasks." />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Button Name="RecurEnumerateTasks" Content="Show Recurring Tasks" Grid.Column="1" Grid.Row="0" Margin="5" HorizontalAlignment="Left" Click="RecurEnumerateTasks_Click" />
+                            <TreeViewItem Header="Select Tasks to Enumerate:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Grid.Row="1" Visibility="Visible" />
+                            <DataGrid Name="RecurEnumerateGrid" Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardTaskGrid}" HorizontalAlignment="Center" MaxHeight="200" Visibility="Visible">
+                                <DataGrid.Columns>
+                                    <DataGridCheckBoxColumn Header="✓"
+                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                                    <DataGridTextColumn Header="Description"
+                                                Binding="{Binding Content}"  Width="Auto" MinWidth="600" MaxWidth="1800" >
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style>
+                                                <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Button Name="RecurEnumerateRunAutomation" Content="Start Automation" Grid.Column="1" Grid.Row="2" Margin="5" HorizontalAlignment="Left" Visibility="Visible" Click="RecurEnumerateRunAutomation_Click" />
+                        </Grid>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Send Back to Inbox">
+                        <TreeViewItem Header="This automated task will send all tasks from a project to the Inbox to be resorted." />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TreeViewItem Header="Project to Clear:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" />
+                            <ComboBox Name="BacktoInbPrjCombo" Style="{StaticResource ProjectComboBox}" />
+                            <Button Name="BackToInbRunAutomation" Content="Start Automation" Grid.Column="1" Grid.Row="1" Margin="5" HorizontalAlignment="Left" Click="BackToInbRunAutomation_Click" />
+                        </Grid>
+                    </TreeViewItem>
+                </TreeView>
+            </TabItem>
+            <TabItem Header="Help">
+                <GroupBox Header="Help" FontSize="16" Margin="3">
+                    <TextBlock>
+                            For documentation about functionality: <Hyperlink NavigateUri="https://github.com/samgovier/TaskCaptain">https://github.com/samgovier/TaskCaptain</Hyperlink><LineBreak/>
+                            You can open any issues and questions on my GitHub page there.
+                        </TextBlock>
+                    </GroupBox>
+            </TabItem>
+        </TabControl>
+        <StatusBar VerticalAlignment="Bottom" Grid.Row="1">
+            <StatusBarItem>
+                <TextBlock Text="Ready" HorizontalAlignment="Left"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <Button Content="Sync" Name="SyncButton" Click="SyncButton_Click" FontSize="8" FontWeight="Bold" FontStyle="Italic" />
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
