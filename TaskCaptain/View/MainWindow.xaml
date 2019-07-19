@@ -217,8 +217,9 @@
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <Button Name="RecurEnumerateTasks" Content="Show Recurring Tasks" Grid.Column="1" Grid.Row="0" Margin="5" HorizontalAlignment="Left" />
-                            <DataGrid Name="RecurEnumerateGrid" Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource StandardTaskGrid}" HorizontalAlignment="Center" MaxHeight="200" Visibility="Visible">
+                            <Button Name="RecurEnumerateTasks" Content="Show Recurring Tasks" Grid.Column="1" Grid.Row="0" Margin="5" HorizontalAlignment="Left" Click="RecurEnumerateTasks_Click" />
+                            <TreeViewItem Header="Select Tasks to Enumerate:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5" Grid.Row="1" Visibility="Visible" />
+                            <DataGrid Name="RecurEnumerateGrid" Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardTaskGrid}" HorizontalAlignment="Center" MaxHeight="200" Visibility="Visible">
                                 <DataGrid.Columns>
                                     <DataGridCheckBoxColumn Header="✓"
                                                     Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
@@ -256,7 +257,7 @@
             <TabItem Header="Help">
                 <GroupBox Header="Help" FontSize="16" Margin="3">
                     <TextBlock>
-                            For documentation about functionality: https://github.com/samgovier/TaskCaptain<LineBreak/>
+                            For documentation about functionality: <Hyperlink NavigateUri="https://github.com/samgovier/TaskCaptain">https://github.com/samgovier/TaskCaptain</Hyperlink><LineBreak/>
                             You can open any issues and questions on my GitHub page there.
                         </TextBlock>
                     </GroupBox>
