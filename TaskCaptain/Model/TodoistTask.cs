@@ -45,7 +45,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Id)));
                     _id = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
                     IsOnline = true;
                 }
             }
@@ -70,7 +72,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(ProjectId)));
                     _projectId = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ProjectId)));
                     IsOnline = true;
                 }
             }
@@ -95,7 +99,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Content)));
                     _content = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Content)));
                 }
             }
         }
@@ -119,7 +125,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Order)));
                     _order = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Order)));
                     IsOnline = true;
                 }
             }
@@ -144,7 +152,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Indent)));
                     _indent = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Indent)));
                     IsOnline = true;
                 }
             }
@@ -169,7 +179,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Priority)));
                     _priority = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Priority)));
                 }
             }
         }

@@ -60,7 +60,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Id)));
                     _id = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
                 }
             }
         }
@@ -83,7 +85,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Name)));
                     _name = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
                 }
             }
         }
@@ -106,7 +110,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Order)));
                     _order = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Order)));
                 }
             }
         }
@@ -130,7 +136,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Indent)));
                     _indent = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Indent)));
                 }
             }
         }
