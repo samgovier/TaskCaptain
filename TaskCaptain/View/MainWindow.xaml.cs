@@ -109,12 +109,32 @@ namespace TaskCaptain
 
         private void DateRngSchRunAutomation_Click(object sender, RoutedEventArgs e)
         {
-            TodoistAutomation.ScheduleToWeekStart((TodoistTask[])DateRngSchGrid.SelectedItems);
+            TodoistTask[] tasksToMove = new TodoistTask[DateRngSchGrid.SelectedItems.Count];
+            DateRngSchGrid.SelectedItems.CopyTo(tasksToMove, 0);
+            TodoistAutomation.ScheduleToWeekStart(tasksToMove);
         }
 
         private void BackToInbRunAutomation_Click(object sender, RoutedEventArgs e)
         {
             TodoistAutomation.ClearToProject(_todoistAcct[0], (TodoistProject)BacktoInbPrjCombo.SelectedItem);
+        }
+
+        private void RecurEnumerateTasks_Click(object sender, RoutedEventArgs e)
+        {
+            List<TodoistTask> tasksToDisplay = new List<TodoistTask>();
+
+            foreach (TodoistProject prj in _todoistAcct)
+            {
+                foreach(TodoistTask tsk in prj)
+                {
+                    if ((null != tsk.Due) && tsk.Due.Recurring)
+                    {
+                        tasksToDisplay.Add(tsk);
+                    }
+                }
+            }
+
+            RecurEnumerateGrid.ItemsSource = tasksToDisplay;
         }
 
         private void RecurEnumerateRunAutomation_Click(object sender, RoutedEventArgs e)

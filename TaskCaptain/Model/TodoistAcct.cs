@@ -156,10 +156,14 @@ namespace TaskCaptain
             {
                 foreach(TodoistTask task in project)
                 {
-                    task.Due.TryParseToDateTime(out DateTime taskDT);
-                    if (selectedDate.Equals(taskDT))
+                    if (null != task.Due)
                     {
-                        dateTasks.Add(task);
+                        task.Due.TryParseToDateTime(out DateTime taskDT);
+
+                        if (selectedDate.Equals(taskDT))
+                        {
+                            dateTasks.Add(task);
+                        }
                     }
                 }
             }
