@@ -30,9 +30,9 @@ namespace TaskCaptain
         {
             InitializeTodoistAccount();
             InitializeComponent();
-            FocusGrid.ItemsSource = _todoistAcct[1];
-            ProjectGrid.ItemsSource = _todoistAcct[1];
-            RecurEnumerateGrid.ItemsSource = DateRngSchGrid.ItemsSource = _todoistAcct[1];
+            FocusGrid.ItemsSource = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
+            ProjectGrid.ItemsSource = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
+            RecurEnumerateGrid.ItemsSource = DateRngSchGrid.ItemsSource = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
             LastWkPrjCombo.ItemsSource = BacktoInbPrjCombo.ItemsSource = _todoistAcct;
         }
 
