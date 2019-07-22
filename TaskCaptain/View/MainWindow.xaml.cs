@@ -101,7 +101,7 @@ namespace TaskCaptain
 
             foreach (DateTime selectedDate in DateRngSchCal.SelectedDates)
             {
-                tasksToMove.AddRange(_todoistAcct.GetTasksForDate(selectedDate));
+                tasksToMove.AddRange(_todoistAcct.GetTasksForDates(selectedDate));
             }
 
             DateRngSchGrid.ItemsSource = tasksToMove;
