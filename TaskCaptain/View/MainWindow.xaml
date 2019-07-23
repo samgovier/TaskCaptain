@@ -19,7 +19,7 @@
             <Setter Property="AutoGenerateColumns"
                     Value="False" />
             <Setter Property="IsReadOnly"
-                    Value="True" />
+                    Value="False" />
             <Setter Property="HorizontalAlignment"
                     Value="Left" />
             <Setter Property="Width"
@@ -55,7 +55,7 @@
                           Style="{StaticResource StandardTaskGrid}"  Margin="10,20" HorizontalAlignment="Center">
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn Header="✓"
-                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                                                    Binding="{Binding IsCompleted}" MaxWidth="20" Width="20" />
                         <DataGridTextColumn Header="Description"
                                                 Binding="{Binding Content}"  Width="Auto" MinWidth="600" MaxWidth="1800" >
                             <DataGridTextColumn.ElementStyle>
@@ -84,7 +84,7 @@
                     <DataGrid Name="FilterGrid" Style="{StaticResource StandardTaskGrid}" Width="Auto">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Header="✓"
-                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                                                    Binding="{Binding IsCompleted}" MaxWidth="20" Width="20" />
                             <DataGridTextColumn Header="Description"
                                                 Binding="{Binding Content}"  Width="600" MinWidth="100">
                                 <DataGridTextColumn.ElementStyle>
@@ -120,7 +120,7 @@
                     <DataGrid Name="ProjectGrid" Style="{StaticResource StandardTaskGrid}" Width="Auto">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Header="✓"
-                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                                                    Binding="{Binding IsCompleted}" MaxWidth="20" Width="20" />
                             <DataGridTextColumn Header="Description"
                                                 Binding="{Binding Content}"  Width="600" MinWidth="100">
                                 <DataGridTextColumn.ElementStyle>
@@ -191,7 +191,7 @@
                             <DataGrid Name="DateRngSchGrid" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource StandardTaskGrid}" HorizontalAlignment="Center" MaxHeight="200" Visibility="Visible" >
                                 <DataGrid.Columns>
                                     <DataGridCheckBoxColumn Header="✓"
-                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                                                    Binding="{Binding IsCompleted}" MaxWidth="20" Width="20" />
                                     <DataGridTextColumn Header="Description"
                                                 Binding="{Binding Content}"  Width="Auto" MinWidth="600" MaxWidth="1800" >
                                         <DataGridTextColumn.ElementStyle>
@@ -222,7 +222,7 @@
                             <DataGrid Name="RecurEnumerateGrid" Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardTaskGrid}" HorizontalAlignment="Center" MaxHeight="200" Visibility="Visible">
                                 <DataGrid.Columns>
                                     <DataGridCheckBoxColumn Header="✓"
-                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                                                    Binding="{Binding IsCompleted}" MaxWidth="20" Width="20" />
                                     <DataGridTextColumn Header="Description"
                                                 Binding="{Binding Content}"  Width="Auto" MinWidth="600" MaxWidth="1800" >
                                         <DataGridTextColumn.ElementStyle>

@@ -10,7 +10,7 @@ using System.Collections.Specialized;
 
 namespace TaskCaptain
 {
-    class TodoistAcct : ICollection<TodoistProject>, IEnumerable, INotifyPropertyChanged, INotifyPropertyChanging, INotifyCollectionChanged
+    class TodoistAcct : ICollection<TodoistProject>, IEnumerable, INotifyPropertyChanged, INotifyPropertyChanging
     {
         #region Config
 
@@ -31,7 +31,6 @@ namespace TaskCaptain
 
         public event PropertyChangedEventHandler PropertyChanged;
         public event PropertyChangingEventHandler PropertyChanging;
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         /// <summary>
         /// Count is the amount of Projects in the account
@@ -186,6 +185,12 @@ namespace TaskCaptain
         {
             return new ObservableCollection<TodoistTask>(GetTasksForDates(forDates));
         }
+
+        public ObservableCollection<TodoistProject> GetObservableProjects()
+        {
+            return new ObservableCollection<TodoistProject>(_projectList.ToList());
+        }
+
         #endregion
     }
 }

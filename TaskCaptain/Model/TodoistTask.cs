@@ -215,7 +215,7 @@ namespace TaskCaptain
         /// IsCompleted is a boolean to state whether the task is completed or not
         /// </summary>
         [JsonProperty("completed")]
-        public bool IsCompleted { get; private set; }
+        public bool IsCompleted { get; set; }
 
         /// <summary>
         /// IsOnline is a boolean marking whether or not this task is online, and other values are expected
@@ -246,6 +246,15 @@ namespace TaskCaptain
             IsCompleted = false;
             IsOnline = false;
             Priority = 4;
+        }
+
+        /// <summary>
+        /// Test constructor
+        /// </summary>
+        /// <param name="content"></param>
+        public TodoistTask()
+        {
+            // NO
         }
 
         /// <summary>
@@ -293,14 +302,6 @@ namespace TaskCaptain
         }
         #endregion
         #region Functions
-
-        /// <summary>
-        /// MarkComplete marks the task as complete
-        /// </summary>
-        public void MarkComplete()
-        {
-            IsCompleted = true;
-        }
 
         public void MoveToProject(TodoistProject destProject)
         {
