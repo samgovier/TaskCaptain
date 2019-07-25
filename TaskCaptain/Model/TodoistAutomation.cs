@@ -76,19 +76,12 @@ namespace TaskCaptain
         /// </summary>
         public static void ClearToProject(TodoistProject incomingProject, TodoistProject oldProject)
         {
-            if(!incomingProject.IsOnline || !oldProject.IsOnline)
+            foreach(TodoistTask task in oldProject)
             {
-                throw new TodoistOfflineException("Projects must be online to be cleared to.");
+                incomingProject.Add(task);
             }
-            else
-            {
-                foreach(TodoistTask task in oldProject)
-                {
-                   incomingProject.Add(task);
-                }
 
-                oldProject.Clear();
-            }
+            oldProject.Clear();
         }
 
         /// <summary>

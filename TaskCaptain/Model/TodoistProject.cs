@@ -145,11 +145,6 @@ namespace TaskCaptain
         }
 
         /// <summary>
-        /// IsOnline is a boolean marking whether or not this task is online, and other values are expected
-        /// </summary>
-        public bool IsOnline { get; private set; }
-
-        /// <summary>
         /// IsReadOnly is a boolean marking whether or not this item is editable
         /// </summary>
         public bool IsReadOnly
@@ -181,7 +176,6 @@ namespace TaskCaptain
         {
             Name = name;
             _taskList = new ObservableCollection<TodoistTask>();
-            IsOnline = false;
         }
 
         /// <summary>
@@ -193,7 +187,6 @@ namespace TaskCaptain
         {
             Name = name;
             _taskList = new ObservableCollection<TodoistTask>();
-            IsOnline = false;
 
             foreach (TodoistTask task in taskArray)
             {
@@ -216,7 +209,6 @@ namespace TaskCaptain
             Order = order;
             Indent = indent;
             _taskList = new ObservableCollection<TodoistTask>();
-            IsOnline = true;
         }
 
         /// <summary>
@@ -234,7 +226,6 @@ namespace TaskCaptain
             Order = order;
             Indent = indent;
             _taskList = new ObservableCollection<TodoistTask>();
-            IsOnline = true;
 
             foreach (TodoistTask task in taskArray)
             {

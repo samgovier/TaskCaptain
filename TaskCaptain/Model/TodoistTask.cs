@@ -48,7 +48,6 @@ namespace TaskCaptain
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Id)));
                     _id = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
-                    IsOnline = true;
                 }
             }
         }
@@ -75,7 +74,6 @@ namespace TaskCaptain
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(ProjectId)));
                     _projectId = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ProjectId)));
-                    IsOnline = true;
                 }
             }
         }
@@ -128,7 +126,6 @@ namespace TaskCaptain
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Order)));
                     _order = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Order)));
-                    IsOnline = true;
                 }
             }
         }
@@ -155,7 +152,6 @@ namespace TaskCaptain
                     PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Indent)));
                     _indent = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Indent)));
-                    IsOnline = true;
                 }
             }
         }
@@ -206,7 +202,6 @@ namespace TaskCaptain
             set
             {
                 _webUrl = value;
-                IsOnline = true;
             }
 
         }
@@ -216,11 +211,6 @@ namespace TaskCaptain
         /// </summary>
         [JsonProperty("completed")]
         public bool IsCompleted { get; set; }
-
-        /// <summary>
-        /// IsOnline is a boolean marking whether or not this task is online, and other values are expected
-        /// </summary>
-        public bool IsOnline { get; private set; }
 
         /// <summary>
         /// PropertyChanging is called when a property is in the process of being changed
@@ -244,17 +234,16 @@ namespace TaskCaptain
         {
             Content = content;
             IsCompleted = false;
-            IsOnline = false;
             Priority = 4;
         }
 
         /// <summary>
         /// Test constructor
         /// </summary>
-        /// <param name="content"></param>
         public TodoistTask()
         {
             // NO
+            Due = new TodoistDue();
         }
 
         /// <summary>
@@ -271,7 +260,6 @@ namespace TaskCaptain
             Priority = priority;
             Due = due;
             IsCompleted = false;
-            IsOnline = false;
         }
 
         /// <summary>
@@ -298,21 +286,13 @@ namespace TaskCaptain
             Priority = priority;
             Due = due;
             WebUrl = webUrl;
-            IsOnline = true;
         }
         #endregion
         #region Functions
 
         public void MoveToProject(TodoistProject destProject)
         {
-            if (!(IsOnline) || !(destProject.IsOnline))
-            {
-                throw new TodoistOfflineException("The task or project is offline.");
-            }
-            else
-            {
-                ProjectId = destProject.Id;
-            }
+            ProjectId = destProject.Id;
         }
 
         #endregion

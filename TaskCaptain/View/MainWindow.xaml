@@ -96,7 +96,7 @@
                             <DataGridTextColumn Header="p"
                                                 Binding="{Binding Priority}" MaxWidth="20" Width="20" />
                             <DataGridTextColumn Header="Project"
-                                                Binding="{Binding ProjectId}" MinWidth="50" />
+                                                Binding="{Binding ProjectId, Mode=OneWay}" MinWidth="50" />
                             <DataGridTextColumn Header="Due"
                                                 Binding="{Binding Due.EntryString}" MinWidth="50" />
                         </DataGrid.Columns>
@@ -132,7 +132,7 @@
                             <DataGridTextColumn Header="p"
                                                 Binding="{Binding Priority}" MaxWidth="20" Width="20" />
                             <DataGridTextColumn Header="Project"
-                                                Binding="{Binding ProjectId}" MinWidth="50" />
+                                                Binding="{Binding ProjectId, Mode=OneWay}" MinWidth="50" />
                             <DataGridTextColumn Header="Due"
                                                 Binding="{Binding Due.EntryString}" MinWidth="50" />
                         </DataGrid.Columns>
