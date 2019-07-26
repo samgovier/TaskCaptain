@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace TaskCaptain
 {
@@ -25,15 +26,26 @@ namespace TaskCaptain
         private TodoistAcct _todoistAcct;
         private HttpClient _todoistClient;
         private string _todoistEndpoint = "https://beta.todoist.com/API/v8";
+        private ObservableCollection<TodoistTask> _focusGrid;
+        private ObservableCollection<TodoistTask> _projectGrid;
 
         public MainWindow()
         {
             InitializeTodoistAccount();
             InitializeComponent();
-            FocusGrid.ItemsSource = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
-            ProjectGrid.ItemsSource = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
+            InitializeTwoWayGrids();
             RecurEnumerateGrid.ItemsSource = DateRngSchGrid.ItemsSource = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
             LastWkPrjCombo.ItemsSource = BacktoInbPrjCombo.ItemsSource = _todoistAcct.GetObservableProjects();
+        }
+
+        private void InitializeTwoWayGrids()
+        {
+            _focusGrid = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
+            FocusGrid.ItemsSource = _focusGrid;
+            _projectGrid = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
+            ProjectGrid.ItemsSource = _projectGrid;
+            _focusGrid.CollectionChanged += null;
+            _projectGrid.CollectionChanged += null;
         }
 
         private void InitializeTodoistAccount()
