@@ -26,26 +26,31 @@ namespace TaskCaptain
         private TodoistAcct _todoistAcct;
         private HttpClient _todoistClient;
         private string _todoistEndpoint = "https://beta.todoist.com/API/v8";
-        private ObservableCollection<TodoistTask> _focusGrid;
-        private ObservableCollection<TodoistTask> _projectGrid;
+        private ObservableCollection<TodoistTask> _filterGridView;
+        private List<DateTime> _filterGridModel;
+        private ObservableCollection<TodoistTask> _projectGridView;
+        private TodoistProject _projectGridModel;
 
         public MainWindow()
         {
             InitializeTodoistAccount();
             InitializeComponent();
             InitializeTwoWayGrids();
+            FocusGrid.ItemsSource = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
             RecurEnumerateGrid.ItemsSource = DateRngSchGrid.ItemsSource = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
             LastWkPrjCombo.ItemsSource = BacktoInbPrjCombo.ItemsSource = _todoistAcct.GetObservableProjects();
         }
 
         private void InitializeTwoWayGrids()
         {
-            _focusGrid = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
-            FocusGrid.ItemsSource = _focusGrid;
-            _projectGrid = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
-            ProjectGrid.ItemsSource = _projectGrid;
-            _focusGrid.CollectionChanged += null;
-            _projectGrid.CollectionChanged += null;
+            _filterGridView = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
+            _projectGridModel = _todoistAcct[1];
+            FilterGrid.ItemsSource = _filterGridView;
+            _projectGridView = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
+            _filterGridModel = null;
+            ProjectGrid.ItemsSource = _projectGridView;
+            _projectGridView.CollectionChanged += _projectGridModel.ObservableCollectionChanged;
+            _filterGridView.CollectionChanged += _todoistAcct.ObservableCollectionChanged;
         }
 
         private void InitializeTodoistAccount()

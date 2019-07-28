@@ -74,6 +74,25 @@ namespace TaskCaptain
             }
         }
 
+        internal void ObservableCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+           if(e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach(TodoistTask task in e.NewItems)
+                {
+                    GetProjectById(task.ProjectId).Add(task);
+                }
+            }
+           else if(e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach(TodoistTask task in e.OldItems)
+                {
+                    GetProjectById(task.ProjectId).Remove(task);
+                }
+            }
+          
+        }
+
         #endregion
 
         #region Standard Functions
@@ -136,7 +155,7 @@ namespace TaskCaptain
             }
         }
 
-        public TodoistProject GetProjectById(int projId)
+        public TodoistProject GetProjectById(long projId)
         {
             foreach(TodoistProject project in _projectList)
             {

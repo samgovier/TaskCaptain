@@ -27,9 +27,9 @@ namespace TaskCaptain
         private ObservableCollection<TodoistTask> _taskList;
 
         // These are the private backing fields for the below properties
-        long? _id;
-        int? _order;
-        int? _indent;
+        long _id;
+        int _order;
+        int _indent;
         string _name;
 
         // These fields are used for sorting the project by the corresponding name
@@ -47,7 +47,7 @@ namespace TaskCaptain
         /// Null if offline
         /// </summary>
         [JsonProperty(nameof(Id))]
-        public long? Id
+        public long Id
         {
             get
             {
@@ -66,6 +66,25 @@ namespace TaskCaptain
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
                 }
             }
+        }
+
+        internal void ObservableCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach (TodoistTask task in e.NewItems)
+                {
+                    Add(task);
+                }
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (TodoistTask task in e.OldItems)
+                {
+                    Remove(task);
+                }
+            }
+
         }
 
         /// <summary>
@@ -97,7 +116,7 @@ namespace TaskCaptain
         /// Null if offline
         /// </summary>
         [JsonProperty(nameof(Order))]
-        public int? Order
+        public int Order
         {
             get
             {
@@ -123,7 +142,7 @@ namespace TaskCaptain
         /// Null if offline
         /// </summary>
         [JsonProperty(nameof(Indent))]
-        public int? Indent
+        public int Indent
         {
             get
             {
