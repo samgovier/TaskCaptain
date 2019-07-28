@@ -18,12 +18,13 @@ namespace TaskCaptain
         #region Config
 
         // These are the private backing fields for the below properties
-        long? _id;
-        long? _projectId;
-        int? _order;
-        int? _indent;
+        long _id;
+        long _projectId;
+        int _order;
+        int _indent;
         int _priority;
         string _content;
+        bool _isCompleted;
         string _webUrl;
 
         /// <summary>
@@ -31,7 +32,7 @@ namespace TaskCaptain
         /// Null if offline
         /// </summary>
         [JsonProperty(nameof(Id))]
-        public long? Id
+        public long Id
         {
             get
             {
@@ -57,7 +58,7 @@ namespace TaskCaptain
         /// Null if offline
         /// </summary>
         [JsonProperty("project_id")]
-        public long? ProjectId
+        public long ProjectId
         {
             get
             {
@@ -109,7 +110,7 @@ namespace TaskCaptain
         /// Null if offline
         /// </summary>
         [JsonProperty(nameof(Order))]
-        public int? Order
+        public int Order
         {
             get
             {
@@ -135,7 +136,7 @@ namespace TaskCaptain
         /// Null if offline
         /// </summary
         [JsonProperty(nameof(Indent))]
-        public int? Indent
+        public int Indent
         {
             get
             {
@@ -210,7 +211,20 @@ namespace TaskCaptain
         /// IsCompleted is a boolean to state whether the task is completed or not
         /// </summary>
         [JsonProperty("completed")]
-        public bool IsCompleted { get; set; }
+        public bool IsCompleted
+        {
+            get
+            {
+                return _isCompleted;
+            }
+
+            set
+            {
+                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(IsCompleted)));
+                _isCompleted = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsCompleted)));
+            }
+        }
 
         /// <summary>
         /// PropertyChanging is called when a property is in the process of being changed
@@ -253,7 +267,7 @@ namespace TaskCaptain
         /// <param name="projectId"></param>
         /// <param name="priority"></param>
         /// <param name="due"></param>
-        public TodoistTask(string content, long? projectId, int priority, TodoistDue due)
+        public TodoistTask(string content, long projectId, int priority, TodoistDue due)
         {
             Content = content;
             ProjectId = projectId;
