@@ -39,6 +39,8 @@ namespace TaskCaptain
             FocusGrid.ItemsSource = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
             RecurEnumerateGrid.ItemsSource = DateRngSchGrid.ItemsSource = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
             LastWkPrjCombo.ItemsSource = BacktoInbPrjCombo.ItemsSource = _todoistAcct.GetObservableProjects();
+
+            ProjectTreeView.ItemsSource = _todoistAcct;
         }
 
         private void InitializeTwoWayGrids()

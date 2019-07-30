@@ -79,8 +79,8 @@
                         <TreeViewItem Header="Saturday" />
                         <TreeViewItem Header="Rest Of Week" />
                         <TreeViewItem Header="7 Days" />
-                        <Button VerticalAlignment="Bottom" Content="Add Filter..." Name="AddFilter" Margin="0,5" />
                     </TreeView>
+                    <Button VerticalAlignment="Bottom" Content="Add Filter..." Name="AddFilter" Margin="0,5" />
                     <DataGrid Name="FilterGrid" Style="{StaticResource StandardTaskGrid}" Width="Auto">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Header="✓"
@@ -109,14 +109,19 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
-                    <TreeView>
-                        <TreeViewItem Header="Inbox" />
+                    <TreeView Name="ProjectTreeView">
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate DataType="x:Type self:TodoistProject}">
+                                <TreeViewItem Header="{Binding Name}" />
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                        <!--<TreeViewItem Header="Inbox" />
                         <TreeViewItem Header="Personal" />
                         <TreeViewItem Header="Work">
                             <TreeViewItem Header="Hunt" />
-                        </TreeViewItem>
-                        <Button VerticalAlignment="Bottom" Content="Add Project..." Name="AddProject" Margin="0,5" />
-                    </TreeView>
+                        </TreeViewItem>-->
+                    <Button VerticalAlignment="Bottom" Content="Add Project..." Name="AddProject" Margin="0,5" />
                     <DataGrid Name="ProjectGrid" Style="{StaticResource StandardTaskGrid}" Width="Auto">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Header="✓"
