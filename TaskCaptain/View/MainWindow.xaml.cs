@@ -171,5 +171,10 @@ namespace TaskCaptain
             ProjectGrid.ItemsSource = _projectGridView = _todoistAcct.GetObservableTasks(selectedProject);
             _projectGridView.CollectionChanged += _projectGridModel.ObservableCollectionChanged;
         }
+
+        private void FilterTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+
+        }
     }
 }

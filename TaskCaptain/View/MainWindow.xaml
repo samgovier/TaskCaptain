@@ -73,12 +73,13 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
-                    <TreeView>
-                        <TreeViewItem Header="Today" />
-                        <TreeViewItem Header="Tomorrow" />
-                        <TreeViewItem Header="Saturday" />
-                        <TreeViewItem Header="Rest Of Week" />
-                        <TreeViewItem Header="7 Days" />
+                    <TreeView Name="FilterTreeView" SelectedItemChanged="FilterTreeView_SelectedItemChanged">
+                        <TreeView.ItemTemplate>
+                            <!-- Use a dictionary with string to value -->
+                            <HierarchicalDataTemplate DataType="x:Type self:TodoistFilter}">
+                                <TextBlock Text="{Binding Key}"/>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
                     </TreeView>
                     <Button VerticalAlignment="Bottom" Content="Add Filter..." Name="AddFilter" Margin="0,5" />
                     <DataGrid Name="FilterGrid" Style="{StaticResource StandardTaskGrid}" Width="Auto">
@@ -116,11 +117,6 @@
                             </HierarchicalDataTemplate>
                         </TreeView.ItemTemplate>
                     </TreeView>
-                        <!--<TreeViewItem Header="Inbox" />
-                        <TreeViewItem Header="Personal" />
-                        <TreeViewItem Header="Work">
-                            <TreeViewItem Header="Hunt" />
-                        </TreeViewItem>-->
                     <Button VerticalAlignment="Bottom" Content="Add Project..." Name="AddProject" Margin="0,5" />
                     <DataGrid Name="ProjectGrid" Style="{StaticResource StandardTaskGrid}" Width="Auto">
                         <DataGrid.Columns>
