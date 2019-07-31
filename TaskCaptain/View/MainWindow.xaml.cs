@@ -163,5 +163,13 @@ namespace TaskCaptain
                 TodoistAutomation.TranslateRecurrence(recurringTask, new TimeSpan());
             }
         }
+
+        private void ProjectTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            TodoistProject selectedProject = (TodoistProject)e.NewValue;
+            _projectGridModel = selectedProject;
+            ProjectGrid.ItemsSource = _projectGridView = _todoistAcct.GetObservableTasks(selectedProject);
+            _projectGridView.CollectionChanged += _projectGridModel.ObservableCollectionChanged;
+        }
     }
 }

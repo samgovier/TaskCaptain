@@ -109,10 +109,10 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
-                    <TreeView Name="ProjectTreeView">
+                    <TreeView Name="ProjectTreeView" SelectedItemChanged="ProjectTreeView_SelectedItemChanged">
                         <TreeView.ItemTemplate>
                             <HierarchicalDataTemplate DataType="x:Type self:TodoistProject}">
-                                <TreeViewItem Header="{Binding Name}" />
+                                <TextBlock Text="{Binding Name}"/>
                             </HierarchicalDataTemplate>
                         </TreeView.ItemTemplate>
                     </TreeView>
