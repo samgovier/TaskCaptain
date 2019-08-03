@@ -34,3 +34,4 @@ Boatswain contains code for unit testing via Visual Studio.
 ## Notes
 **Version**: 0.2  
 **Author**: Sam Govier ([GitHub](https://github.com/samgovier))  
+TaskCaptain is not created by, affiliated with, or supported by Doist.
