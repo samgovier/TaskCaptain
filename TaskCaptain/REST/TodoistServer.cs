@@ -129,9 +129,15 @@ namespace TaskCaptain.REST
 
         private static bool IsTodoistFormat(HttpClient todoistClient)
         {
-            if(todoistClient.BaseAddress.IsWellFormedOriginalString() &&
-                todoistClient.BaseAddress.ToString().Contains("todoist.com") &&
-                todoistClient.DefaultRequestHeaders)
+            if((null != todoistClient) &&
+               !todoistClient.BaseAddress.IsWellFormedOriginalString() &&
+               !todoistClient.BaseAddress.ToString().Contains("todoist.com") &&
+               !todoistClient.DefaultRequestHeaders.Contains("Authorization"))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
