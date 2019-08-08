@@ -76,7 +76,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\TodoistAutomation.cs" />
-    <Compile Include="REST\TodoistServer.cs" />
+    <Compile Include="REST\TodoistClient.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

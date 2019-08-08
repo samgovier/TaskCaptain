@@ -9,16 +9,23 @@ using Newtonsoft.Json;
 namespace TaskCaptain.REST
 {
     /// <summary>
-    /// TodoistServer is the static class for making REST calls against the Todoist Server according to the Net.Http class.
+    /// TodoistClient is the static class for making REST calls against the Todoist Server according to the Net.Http class.
     /// Each method will return an HttpResponseMessage per the HTTP request. Any GETs contain an out parameter with the object.
     /// This class also does the Newtonsoft.Json conversion/deconversion.
     /// All passed HttpClients must contain the proper URI and headers.
     /// </summary>
-    public static class TodoistServer
+    public static class TodoistClient
     {
         public static HttpResponseMessage GetAllProjects(HttpClient todoistClient, out ICollection<TodoistProject> allProjects)
         {
+            if(IsTodoistFormat(todoistClient))
+            {
 
+            }
+            else
+            {
+                return Http
+            }
         }
 
         public static HttpResponseMessage CreateNewProject(HttpClient todoistClient, string projectName, out TodoistProject newProject)
