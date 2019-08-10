@@ -16,90 +16,148 @@ namespace TaskCaptain.REST
     /// </summary>
     public static class TodoistClient
     {
+        private static readonly string _badClientErrorString = "The Todoist client was malformatted for Todoist communication. It must be pointed at todoist.com and have an authorization header.";
+
         public static HttpResponseMessage GetAllProjects(HttpClient todoistClient, out ICollection<TodoistProject> allProjects)
         {
-            if (IsTodoistFormat(todoistClient))
+            if (!IsTodoistFormat(todoistClient))
             {
-
-            }
-            else
-            {
-                throw new ArgumentException("The todoist client passed in was malformatted or ");
+                throw new ArgumentException(_badClientErrorString);
             }
         }
 
         public static HttpResponseMessage CreateNewProject(HttpClient todoistClient, string projectName, out TodoistProject newProject)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
         public static HttpResponseMessage GetProject(HttpClient todoistClient, int projectId, out TodoistProject gotProject)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
         public static HttpResponseMessage UpdateProject(HttpClient todoistClient, string projectName)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
         public static HttpResponseMessage DeleteProject(HttpClient todoistClient, int projectId)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
         public static HttpResponseMessage GetActiveTasks(HttpClient todoistClient, out ICollection<TodoistTask> allTasks)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
         public static HttpResponseMessage GetAllActiveTasks(HttpClient todoistClient, int projectId, out ICollection<TodoistTask> projectTasks)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
         public static HttpResponseMessage GetAllActiveTasks(HttpClient todoistClient, string filter, out ICollection<TodoistTask> filterTasks)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
         public static HttpResponseMessage GetAllActiveTasks(HttpClient todoistClient, int projectId, string filter, out ICollection<TodoistTask> filterTasks)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
         public static HttpResponseMessage CreateNewTask(HttpClient todoistClient, string content, out TodoistTask newTask)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
         public static HttpResponseMessage CreateNewTask(HttpClient todoistClient, string content, int projectId, int order, int priority, TodoistDue due, out TodoistTask newTask)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
         public static HttpResponseMessage GetActiveTask(HttpClient todoistClient, int taskId, out TodoistTask gotTask)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
         public static HttpResponseMessage UpdateTaskContent(HttpClient todoistClient, int taskId, string newContent)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
         public static HttpResponseMessage UpdateTaskProject(HttpClient todoistClient, int taskId, int newProjectId)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
         public static HttpResponseMessage UpdateTaskPriority(HttpClient todoistClient, int taskId, int newPriority)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
         public static HttpResponseMessage UpdateTaskDue(HttpClient todoistClient, int taskId, TodoistDue newDue)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
@@ -111,6 +169,10 @@ namespace TaskCaptain.REST
         /// <returns></returns>
         public static HttpResponseMessage CloseTask(HttpClient todoistClient, int taskId)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
@@ -126,11 +188,19 @@ namespace TaskCaptain.REST
         /// <returns></returns>
         public static HttpResponseMessage ReopenTask(HttpClient todoistClient, int taskId)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
         public static HttpResponseMessage DeleteTask(HttpClient todoistClient, int taskId)
         {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
         }
 
