@@ -18,13 +18,13 @@ namespace TaskCaptain.REST
     {
         public static HttpResponseMessage GetAllProjects(HttpClient todoistClient, out ICollection<TodoistProject> allProjects)
         {
-            if(IsTodoistFormat(todoistClient))
+            if (IsTodoistFormat(todoistClient))
             {
 
             }
             else
             {
-                return Http
+                throw new ArgumentException("The todoist client passed in was malformatted or ");
             }
         }
 
