@@ -24,43 +24,55 @@ namespace TaskCaptain.REST
             {
                 throw new ArgumentException(_badClientErrorString);
             }
-        }
 
-        public static HttpResponseMessage CreateNewProject(HttpClient todoistClient, string projectName, out TodoistProject newProject)
-        {
-            if (!IsTodoistFormat(todoistClient))
+            HttpResponseMessage returnedResponse = todoistClient.GetAsync(new Uri(todoistClient.BaseAddress + "/projects")).Result;
+            if (returnedResponse.IsSuccessStatusCode)
             {
-                throw new ArgumentException(_badClientErrorString);
+                allProjects = JsonConvert.DeserializeObject<ICollection<TodoistProject>>(returnedResponse.Content.ToString());
+            }
+            else
+            {
+                allProjects = null;
             }
 
+            return returnedResponse;
         }
 
-        public static HttpResponseMessage GetProject(HttpClient todoistClient, int projectId, out TodoistProject gotProject)
-        {
-            if (!IsTodoistFormat(todoistClient))
-            {
-                throw new ArgumentException(_badClientErrorString);
-            }
+        //public static HttpResponseMessage CreateNewProject(HttpClient todoistClient, string projectName, out TodoistProject newProject)
+        //{
+        //    if (!IsTodoistFormat(todoistClient))
+        //    {
+        //        throw new ArgumentException(_badClientErrorString);
+        //    }
 
-        }
+        //}
 
-        public static HttpResponseMessage UpdateProject(HttpClient todoistClient, string projectName)
-        {
-            if (!IsTodoistFormat(todoistClient))
-            {
-                throw new ArgumentException(_badClientErrorString);
-            }
+        //public static HttpResponseMessage GetProject(HttpClient todoistClient, int projectId, out TodoistProject gotProject)
+        //{
+        //    if (!IsTodoistFormat(todoistClient))
+        //    {
+        //        throw new ArgumentException(_badClientErrorString);
+        //    }
 
-        }
+        //}
 
-        public static HttpResponseMessage DeleteProject(HttpClient todoistClient, int projectId)
-        {
-            if (!IsTodoistFormat(todoistClient))
-            {
-                throw new ArgumentException(_badClientErrorString);
-            }
+        //public static HttpResponseMessage UpdateProject(HttpClient todoistClient, string projectName)
+        //{
+        //    if (!IsTodoistFormat(todoistClient))
+        //    {
+        //        throw new ArgumentException(_badClientErrorString);
+        //    }
 
-        }
+        //}
+
+        //public static HttpResponseMessage DeleteProject(HttpClient todoistClient, int projectId)
+        //{
+        //    if (!IsTodoistFormat(todoistClient))
+        //    {
+        //        throw new ArgumentException(_badClientErrorString);
+        //    }
+
+        //}
 
         public static HttpResponseMessage GetActiveTasks(HttpClient todoistClient, out ICollection<TodoistTask> allTasks)
         {
@@ -69,145 +81,166 @@ namespace TaskCaptain.REST
                 throw new ArgumentException(_badClientErrorString);
             }
 
-        }
-
-        public static HttpResponseMessage GetAllActiveTasks(HttpClient todoistClient, int projectId, out ICollection<TodoistTask> projectTasks)
-        {
-            if (!IsTodoistFormat(todoistClient))
+            HttpResponseMessage returnedResponse = todoistClient.GetAsync(new Uri(todoistClient.BaseAddress + "/tasks")).Result;
+            if (returnedResponse.IsSuccessStatusCode)
             {
-                throw new ArgumentException(_badClientErrorString);
+                allTasks = JsonConvert.DeserializeObject<ICollection<TodoistTask>>(returnedResponse.Content.ToString());
+            }
+            else
+            {
+                allTasks = null;
             }
 
-        }
-
-        public static HttpResponseMessage GetAllActiveTasks(HttpClient todoistClient, string filter, out ICollection<TodoistTask> filterTasks)
-        {
-            if (!IsTodoistFormat(todoistClient))
-            {
-                throw new ArgumentException(_badClientErrorString);
-            }
+            return returnedResponse;
 
         }
 
-        public static HttpResponseMessage GetAllActiveTasks(HttpClient todoistClient, int projectId, string filter, out ICollection<TodoistTask> filterTasks)
-        {
-            if (!IsTodoistFormat(todoistClient))
-            {
-                throw new ArgumentException(_badClientErrorString);
-            }
+        //public static HttpResponseMessage GetAllActiveTasks(HttpClient todoistClient, int projectId, out ICollection<TodoistTask> projectTasks)
+        //{
+        //    if (!IsTodoistFormat(todoistClient))
+        //    {
+        //        throw new ArgumentException(_badClientErrorString);
+        //    }
 
-        }
+        //}
 
-        public static HttpResponseMessage CreateNewTask(HttpClient todoistClient, string content, out TodoistTask newTask)
-        {
-            if (!IsTodoistFormat(todoistClient))
-            {
-                throw new ArgumentException(_badClientErrorString);
-            }
+        //public static HttpResponseMessage GetAllActiveTasks(HttpClient todoistClient, string filter, out ICollection<TodoistTask> filterTasks)
+        //{
+        //    if (!IsTodoistFormat(todoistClient))
+        //    {
+        //        throw new ArgumentException(_badClientErrorString);
+        //    }
 
-        }
+        //}
 
-        public static HttpResponseMessage CreateNewTask(HttpClient todoistClient, string content, int projectId, int order, int priority, TodoistDue due, out TodoistTask newTask)
-        {
-            if (!IsTodoistFormat(todoistClient))
-            {
-                throw new ArgumentException(_badClientErrorString);
-            }
+        //public static HttpResponseMessage GetAllActiveTasks(HttpClient todoistClient, int projectId, string filter, out ICollection<TodoistTask> filterTasks)
+        //{
+        //    if (!IsTodoistFormat(todoistClient))
+        //    {
+        //        throw new ArgumentException(_badClientErrorString);
+        //    }
 
-        }
+        //}
 
-        public static HttpResponseMessage GetActiveTask(HttpClient todoistClient, int taskId, out TodoistTask gotTask)
-        {
-            if (!IsTodoistFormat(todoistClient))
-            {
-                throw new ArgumentException(_badClientErrorString);
-            }
+        //public static HttpResponseMessage CreateNewTask(HttpClient todoistClient, string content, out TodoistTask newTask)
+        //{
+        //    if (!IsTodoistFormat(todoistClient))
+        //    {
+        //        throw new ArgumentException(_badClientErrorString);
+        //    }
 
-        }
+        //}
 
-        public static HttpResponseMessage UpdateTaskContent(HttpClient todoistClient, int taskId, string newContent)
-        {
-            if (!IsTodoistFormat(todoistClient))
-            {
-                throw new ArgumentException(_badClientErrorString);
-            }
+        //public static HttpResponseMessage CreateNewTask(HttpClient todoistClient, string content, int projectId, int order, int priority, TodoistDue due, out TodoistTask newTask)
+        //{
+        //    if (!IsTodoistFormat(todoistClient))
+        //    {
+        //        throw new ArgumentException(_badClientErrorString);
+        //    }
 
-        }
+        //}
 
-        public static HttpResponseMessage UpdateTaskProject(HttpClient todoistClient, int taskId, int newProjectId)
-        {
-            if (!IsTodoistFormat(todoistClient))
-            {
-                throw new ArgumentException(_badClientErrorString);
-            }
+        //public static HttpResponseMessage GetActiveTask(HttpClient todoistClient, int taskId, out TodoistTask gotTask)
+        //{
+        //    if (!IsTodoistFormat(todoistClient))
+        //    {
+        //        throw new ArgumentException(_badClientErrorString);
+        //    }
 
-        }
+        //}
 
-        public static HttpResponseMessage UpdateTaskPriority(HttpClient todoistClient, int taskId, int newPriority)
-        {
-            if (!IsTodoistFormat(todoistClient))
-            {
-                throw new ArgumentException(_badClientErrorString);
-            }
+        //public static HttpResponseMessage UpdateTaskContent(HttpClient todoistClient, int taskId, string newContent)
+        //{
+        //    if (!IsTodoistFormat(todoistClient))
+        //    {
+        //        throw new ArgumentException(_badClientErrorString);
+        //    }
 
-        }
+        //}
 
-        public static HttpResponseMessage UpdateTaskDue(HttpClient todoistClient, int taskId, TodoistDue newDue)
-        {
-            if (!IsTodoistFormat(todoistClient))
-            {
-                throw new ArgumentException(_badClientErrorString);
-            }
+        //public static HttpResponseMessage UpdateTaskProject(HttpClient todoistClient, int taskId, int newProjectId)
+        //{
+        //    if (!IsTodoistFormat(todoistClient))
+        //    {
+        //        throw new ArgumentException(_badClientErrorString);
+        //    }
 
-        }
+        //}
 
-        /// <summary>
-        /// The command does exactly what official clients do when you close a task. Regular tasks are completed and moved to history, subtasks are checked (marked as done, but not moved to history), recurring tasks are moved forward (due date is updated).
-        /// </summary>
-        /// <param name="todoistClient"></param>
-        /// <param name="taskId"></param>
-        /// <returns></returns>
-        public static HttpResponseMessage CloseTask(HttpClient todoistClient, int taskId)
-        {
-            if (!IsTodoistFormat(todoistClient))
-            {
-                throw new ArgumentException(_badClientErrorString);
-            }
+        //public static HttpResponseMessage UpdateTaskPriority(HttpClient todoistClient, int taskId, int newPriority)
+        //{
+        //    if (!IsTodoistFormat(todoistClient))
+        //    {
+        //        throw new ArgumentException(_badClientErrorString);
+        //    }
 
-        }
+        //}
 
-        /// <summary>
-        /// This command reopens a previously closed task. Works both with checked tasks in the user’s workspace and tasks moved to history. The behaviour varies for different types of tasks (the command follows the behaviour of official clients when tasks are uncompleted or extracted from the history).
-        /// Regular tasks are extracted from the history and added back to the user workspace as normal unchecked tasks(without their subtasks though).
-        /// Completed subtasks of a non-completed task are simply marked as uncompleted.
-        /// Subtasks that were moved to history are added back to the workspace as first-level tasks.
-        /// Non-completed recurring tasks are ignored.
-        /// </summary>
-        /// <param name="todoistClient"></param>
-        /// <param name="taskId"></param>
-        /// <returns></returns>
-        public static HttpResponseMessage ReopenTask(HttpClient todoistClient, int taskId)
-        {
-            if (!IsTodoistFormat(todoistClient))
-            {
-                throw new ArgumentException(_badClientErrorString);
-            }
+        //public static HttpResponseMessage UpdateTaskDue(HttpClient todoistClient, int taskId, TodoistDue newDue)
+        //{
+        //    if (!IsTodoistFormat(todoistClient))
+        //    {
+        //        throw new ArgumentException(_badClientErrorString);
+        //    }
 
-        }
+        //}
 
-        public static HttpResponseMessage DeleteTask(HttpClient todoistClient, int taskId)
-        {
-            if (!IsTodoistFormat(todoistClient))
-            {
-                throw new ArgumentException(_badClientErrorString);
-            }
+        ///// <summary>
+        ///// The command does exactly what official clients do when you close a task. Regular tasks are completed and moved to history, subtasks are checked (marked as done, but not moved to history), recurring tasks are moved forward (due date is updated).
+        ///// </summary>
+        ///// <param name="todoistClient"></param>
+        ///// <param name="taskId"></param>
+        ///// <returns></returns>
+        //public static HttpResponseMessage CloseTask(HttpClient todoistClient, int taskId)
+        //{
+        //    if (!IsTodoistFormat(todoistClient))
+        //    {
+        //        throw new ArgumentException(_badClientErrorString);
+        //    }
 
-        }
+        //}
+
+        ///// <summary>
+        ///// This command reopens a previously closed task. Works both with checked tasks in the user’s workspace and tasks moved to history. The behaviour varies for different types of tasks (the command follows the behaviour of official clients when tasks are uncompleted or extracted from the history).
+        ///// Regular tasks are extracted from the history and added back to the user workspace as normal unchecked tasks(without their subtasks though).
+        ///// Completed subtasks of a non-completed task are simply marked as uncompleted.
+        ///// Subtasks that were moved to history are added back to the workspace as first-level tasks.
+        ///// Non-completed recurring tasks are ignored.
+        ///// </summary>
+        ///// <param name="todoistClient"></param>
+        ///// <param name="taskId"></param>
+        ///// <returns></returns>
+        //public static HttpResponseMessage ReopenTask(HttpClient todoistClient, int taskId)
+        //{
+        //    if (!IsTodoistFormat(todoistClient))
+        //    {
+        //        throw new ArgumentException(_badClientErrorString);
+        //    }
+
+        //}
+
+        //public static HttpResponseMessage DeleteTask(HttpClient todoistClient, int taskId)
+        //{
+        //    if (!IsTodoistFormat(todoistClient))
+        //    {
+        //        throw new ArgumentException(_badClientErrorString);
+        //    }
+
+        //}
 
         private static bool IsTodoistFormat(HttpClient todoistClient)
         {
-            if((null != todoistClient) &&
-               !todoistClient.BaseAddress.IsWellFormedOriginalString() &&
+            if (null == todoistClient)
+            {
+                return false;
+            }
+
+            if (null == todoistClient.BaseAddress)
+            {
+                todoistClient.BaseAddress =  new Uri("https://beta.todoist.com/API/v8");
+            }
+
+            if (!todoistClient.BaseAddress.IsWellFormedOriginalString() &&
                !todoistClient.BaseAddress.ToString().Contains("todoist.com") &&
                !todoistClient.DefaultRequestHeaders.Contains("Authorization"))
             {

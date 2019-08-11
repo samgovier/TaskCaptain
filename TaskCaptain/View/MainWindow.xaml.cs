@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
+using TaskCaptain.REST;
 
 namespace TaskCaptain
 {
@@ -60,10 +61,13 @@ namespace TaskCaptain
             string restApiToken = "4019f27f4a31859906535ff630dcac7ebb541062";
             _todoistClient = new HttpClient();
             _todoistClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + restApiToken);
-            string getProjectsString = _todoistClient.GetStringAsync(new Uri(_todoistEndpoint + "/projects")).Result;
-            string getTasksString = _todoistClient.GetStringAsync(new Uri(_todoistEndpoint + "/tasks")).Result;
-            List<TodoistProject> getProjectsList = JsonConvert.DeserializeObject<List<TodoistProject>>(getProjectsString);
-            List<TodoistTask> getTasksList = JsonConvert.DeserializeObject<List<TodoistTask>>(getTasksString);
+            //string getProjectsString = _todoistClient.GetStringAsync(new Uri(_todoistEndpoint + "/projects")).Result;
+            //string getTasksString = _todoistClient.GetStringAsync(new Uri(_todoistEndpoint + "/tasks")).Result;
+            //List<TodoistProject> getProjectsList = JsonConvert.DeserializeObject<List<TodoistProject>>(getProjectsString);
+            //List<TodoistTask> getTasksList = JsonConvert.DeserializeObject<List<TodoistTask>>(getTasksString);
+
+            HttpResponseMessage GetAllProjects = TodoistClient.GetAllProjects(_todoistClient, out ICollection<TodoistProject> getProjectsList);
+            HttpResponseMessage GetAllTasks = TodoistClient.GetActiveTasks(_todoistClient, out ICollection<TodoistTask> getTasksList);
 
             //place each task in it's corresponding project
             foreach(TodoistTask taskItem in getTasksList)
