@@ -28,7 +28,8 @@ namespace TaskCaptain.REST
             HttpResponseMessage returnedResponse = todoistClient.GetAsync(new Uri(todoistClient.BaseAddress + "/projects")).Result;
             if (returnedResponse.IsSuccessStatusCode)
             {
-                allProjects = JsonConvert.DeserializeObject<ICollection<TodoistProject>>(returnedResponse.Content.ToString());
+                string result = returnedResponse.Content.ReadAsStringAsync().Result;
+                allProjects = JsonConvert.DeserializeObject<ICollection<TodoistProject>>(result);
             }
             else
             {
@@ -84,7 +85,8 @@ namespace TaskCaptain.REST
             HttpResponseMessage returnedResponse = todoistClient.GetAsync(new Uri(todoistClient.BaseAddress + "/tasks")).Result;
             if (returnedResponse.IsSuccessStatusCode)
             {
-                allTasks = JsonConvert.DeserializeObject<ICollection<TodoistTask>>(returnedResponse.Content.ToString());
+                string result = returnedResponse.Content.ReadAsStringAsync().Result;
+                allTasks = JsonConvert.DeserializeObject<ICollection<TodoistTask>>(result);
             }
             else
             {
