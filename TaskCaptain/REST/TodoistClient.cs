@@ -75,7 +75,7 @@ namespace TaskCaptain.REST
 
         //}
 
-        public static HttpResponseMessage GetActiveTasks(HttpClient todoistClient, out ICollection<TodoistTask> allTasks)
+        public static HttpResponseMessage GetAllActiveTasks(HttpClient todoistClient, out ICollection<TodoistTask> allTasks)
         {
             if (!IsTodoistFormat(todoistClient))
             {
@@ -142,14 +142,27 @@ namespace TaskCaptain.REST
 
         //}
 
-        //public static HttpResponseMessage GetActiveTask(HttpClient todoistClient, int taskId, out TodoistTask gotTask)
-        //{
-        //    if (!IsTodoistFormat(todoistClient))
-        //    {
-        //        throw new ArgumentException(_badClientErrorString);
-        //    }
+        public static HttpResponseMessage GetActiveTask(HttpClient todoistClient, int taskId, out TodoistTask gotTask)
+        {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
-        //}
+            HttpResponseMessage returnedResponse = todoistClient.GetAsync(new Uri(todoistClient.BaseAddress + "/tasks/" + taskId)).Result;
+            if (returnedResponse.IsSuccessStatusCode)
+            {
+                string result = returnedResponse.Content.ReadAsStringAsync().Result;
+                gotTask = JsonConvert.DeserializeObject<TodoistTask>(result);
+            }
+            else
+            {
+                gotTask = null;
+            }
+
+            return returnedResponse;
+
+        }
 
         //public static HttpResponseMessage UpdateTaskContent(HttpClient todoistClient, int taskId, string newContent)
         //{

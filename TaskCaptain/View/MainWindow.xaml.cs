@@ -67,7 +67,7 @@ namespace TaskCaptain
             //List<TodoistTask> getTasksList = JsonConvert.DeserializeObject<List<TodoistTask>>(getTasksString);
 
             HttpResponseMessage GetAllProjects = TodoistClient.GetAllProjects(_todoistClient, out ICollection<TodoistProject> getProjectsList);
-            HttpResponseMessage GetAllTasks = TodoistClient.GetActiveTasks(_todoistClient, out ICollection<TodoistTask> getTasksList);
+            HttpResponseMessage GetAllTasks = TodoistClient.GetAllActiveTasks(_todoistClient, out ICollection<TodoistTask> getTasksList);
 
             //place each task in it's corresponding project
             foreach(TodoistTask taskItem in getTasksList)
