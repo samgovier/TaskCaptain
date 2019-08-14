@@ -48,14 +48,27 @@ namespace TaskCaptain.REST
 
         //}
 
-        //public static HttpResponseMessage GetProject(HttpClient todoistClient, int projectId, out TodoistProject gotProject)
-        //{
-        //    if (!IsTodoistFormat(todoistClient))
-        //    {
-        //        throw new ArgumentException(_badClientErrorString);
-        //    }
+        public static HttpResponseMessage GetProject(HttpClient todoistClient, int projectId, out TodoistProject gotProject)
+        {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
-        //}
+            HttpResponseMessage returnedResponse = todoistClient.GetAsync(new Uri(todoistClient.BaseAddress + "/projects/" + projectId)).Result;
+            if (returnedResponse.IsSuccessStatusCode)
+            {
+                string result = returnedResponse.Content.ReadAsStringAsync().Result;
+                gotProject = JsonConvert.DeserializeObject<TodoistProject>(result);
+            }
+            else
+            {
+                gotProject = null;
+            }
+
+            return returnedResponse;
+
+        }
 
         //public static HttpResponseMessage UpdateProject(HttpClient todoistClient, string projectName)
         //{
@@ -66,14 +79,16 @@ namespace TaskCaptain.REST
 
         //}
 
-        //public static HttpResponseMessage DeleteProject(HttpClient todoistClient, int projectId)
-        //{
-        //    if (!IsTodoistFormat(todoistClient))
-        //    {
-        //        throw new ArgumentException(_badClientErrorString);
-        //    }
+        public static HttpResponseMessage DeleteProject(HttpClient todoistClient, int projectId)
+        {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
-        //}
+            return todoistClient.DeleteAsync(new Uri(todoistClient.BaseAddress + "/projects/" + projectId)).Result;
+
+        }
 
         public static HttpResponseMessage GetAllActiveTasks(HttpClient todoistClient, out ICollection<TodoistTask> allTasks)
         {
@@ -234,14 +249,15 @@ namespace TaskCaptain.REST
 
         //}
 
-        //public static HttpResponseMessage DeleteTask(HttpClient todoistClient, int taskId)
-        //{
-        //    if (!IsTodoistFormat(todoistClient))
-        //    {
-        //        throw new ArgumentException(_badClientErrorString);
-        //    }
+        public static HttpResponseMessage DeleteTask(HttpClient todoistClient, int taskId)
+        {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
-        //}
+            return todoistClient.DeleteAsync(new Uri(todoistClient.BaseAddress + "/tasks/" + taskId)).Result;
+        }
 
         private static bool IsTodoistFormat(HttpClient todoistClient)
         {
