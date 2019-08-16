@@ -39,14 +39,16 @@ namespace TaskCaptain.REST
             return returnedResponse;
         }
 
-        //public static HttpResponseMessage CreateNewProject(HttpClient todoistClient, string projectName, out TodoistProject newProject)
-        //{
-        //    if (!IsTodoistFormat(todoistClient))
-        //    {
-        //        throw new ArgumentException(_badClientErrorString);
-        //    }
+        public static HttpResponseMessage CreateNewProject(HttpClient todoistClient, string projectName, out TodoistProject newProject)
+        {
+            if (!IsTodoistFormat(todoistClient))
+            {
+                throw new ArgumentException(_badClientErrorString);
+            }
 
-        //}
+            MultipartContent data = new MultipartContent("test");
+            HttpResponseMessage requestAndResponse = todoistClient.PostAsync(new Uri(todoistClient.BaseAddress + "/projects"), data).Result;
+        }
 
         public static HttpResponseMessage GetProject(HttpClient todoistClient, int projectId, out TodoistProject gotProject)
         {
