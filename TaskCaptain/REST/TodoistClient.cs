@@ -45,8 +45,9 @@ namespace TaskCaptain.REST
             {
                 throw new ArgumentException(_badClientErrorString);
             }
-
-            MultipartContent data = new MultipartContent("test");
+            
+            string projectNameJson = JsonConvert.SerializeObject(new TodoistProject(projectName));
+            MultipartContent data = new MultipartContent(projectNameJson);
             HttpResponseMessage requestAndResponse = todoistClient.PostAsync(new Uri(todoistClient.BaseAddress + "/projects"), data).Result;
         }
 
