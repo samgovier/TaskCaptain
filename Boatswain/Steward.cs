@@ -4,6 +4,7 @@ using TaskCaptain;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using TaskCaptain.REST;
 
 namespace Boatswain
 {
@@ -55,5 +56,14 @@ namespace Boatswain
 
         }
 
+        [TestMethod]
+        public void TestCreateAndDeleteNewProject()
+        {
+            HttpClient testclient = new HttpClient();
+            testclient.DefaultRequestHeaders.Add("Authorization", "Bearer 4019f27f4a31859906535ff630dcac7ebb541062");
+            TodoistClient.CreateNewProject(testclient, "TEST PROJ", out TodoistProject newbaby);
+            Assert.AreEqual("TEST PROJ", newbaby.Name);
+            TodoistClient.DeleteProject(testclient, newbaby.Id);
+        }
     }
 }

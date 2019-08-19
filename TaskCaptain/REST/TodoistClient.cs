@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.IO;
 using Newtonsoft.Json;
 
 namespace TaskCaptain.REST
@@ -45,13 +46,37 @@ namespace TaskCaptain.REST
             {
                 throw new ArgumentException(_badClientErrorString);
             }
-            
-            string projectNameJson = JsonConvert.SerializeObject(new TodoistProject(projectName));
-            MultipartContent data = new MultipartContent(projectNameJson);
+
+            StringBuilder sb = new StringBuilder();
+            StringWriter sw = new StringWriter(sb);
+            using (JsonWriter jw = new JsonTextWriter(sw))
+            {
+                jw.Formatting = Formatting.Indented;
+
+                jw.WriteStartObject();
+                jw.WritePropertyName("Name");
+                jw.WriteValue(projectName);
+                jw.WriteEndObject();
+
+                MultipartContent data = new MultipartContent(jw);
+            }
+
             HttpResponseMessage requestAndResponse = todoistClient.PostAsync(new Uri(todoistClient.BaseAddress + "/projects"), data).Result;
+
+            if (requestAndResponse.IsSuccessStatusCode)
+            {
+                string result = requestAndResponse.Content.ReadAsStringAsync().Result;
+                newProject = JsonConvert.DeserializeObject<TodoistProject>(result);
+            }
+            else
+            {
+                newProject = null;
+            }
+
+            return requestAndResponse;
         }
 
-        public static HttpResponseMessage GetProject(HttpClient todoistClient, int projectId, out TodoistProject gotProject)
+        public static HttpResponseMessage GetProject(HttpClient todoistClient, long projectId, out TodoistProject gotProject)
         {
             if (!IsTodoistFormat(todoistClient))
             {
@@ -82,7 +107,7 @@ namespace TaskCaptain.REST
 
         //}
 
-        public static HttpResponseMessage DeleteProject(HttpClient todoistClient, int projectId)
+        public static HttpResponseMessage DeleteProject(HttpClient todoistClient, long projectId)
         {
             if (!IsTodoistFormat(todoistClient))
             {
@@ -115,7 +140,7 @@ namespace TaskCaptain.REST
 
         }
 
-        //public static HttpResponseMessage GetAllActiveTasks(HttpClient todoistClient, int projectId, out ICollection<TodoistTask> projectTasks)
+        //public static HttpResponseMessage GetAllActiveTasks(HttpClient todoistClient, long projectId, out ICollection<TodoistTask> projectTasks)
         //{
         //    if (!IsTodoistFormat(todoistClient))
         //    {
@@ -133,7 +158,7 @@ namespace TaskCaptain.REST
 
         //}
 
-        //public static HttpResponseMessage GetAllActiveTasks(HttpClient todoistClient, int projectId, string filter, out ICollection<TodoistTask> filterTasks)
+        //public static HttpResponseMessage GetAllActiveTasks(HttpClient todoistClient, long projectId, string filter, out ICollection<TodoistTask> filterTasks)
         //{
         //    if (!IsTodoistFormat(todoistClient))
         //    {
@@ -151,7 +176,7 @@ namespace TaskCaptain.REST
 
         //}
 
-        //public static HttpResponseMessage CreateNewTask(HttpClient todoistClient, string content, int projectId, int order, int priority, TodoistDue due, out TodoistTask newTask)
+        //public static HttpResponseMessage CreateNewTask(HttpClient todoistClient, string content, long projectId, long order, long priority, TodoistDue due, out TodoistTask newTask)
         //{
         //    if (!IsTodoistFormat(todoistClient))
         //    {
@@ -160,7 +185,7 @@ namespace TaskCaptain.REST
 
         //}
 
-        public static HttpResponseMessage GetActiveTask(HttpClient todoistClient, int taskId, out TodoistTask gotTask)
+        public static HttpResponseMessage GetActiveTask(HttpClient todoistClient, long taskId, out TodoistTask gotTask)
         {
             if (!IsTodoistFormat(todoistClient))
             {
@@ -182,7 +207,7 @@ namespace TaskCaptain.REST
 
         }
 
-        //public static HttpResponseMessage UpdateTaskContent(HttpClient todoistClient, int taskId, string newContent)
+        //public static HttpResponseMessage UpdateTaskContent(HttpClient todoistClient, long taskId, string newContent)
         //{
         //    if (!IsTodoistFormat(todoistClient))
         //    {
@@ -191,7 +216,7 @@ namespace TaskCaptain.REST
 
         //}
 
-        //public static HttpResponseMessage UpdateTaskProject(HttpClient todoistClient, int taskId, int newProjectId)
+        //public static HttpResponseMessage UpdateTaskProject(HttpClient todoistClient, long taskId, long newProjectId)
         //{
         //    if (!IsTodoistFormat(todoistClient))
         //    {
@@ -200,7 +225,7 @@ namespace TaskCaptain.REST
 
         //}
 
-        //public static HttpResponseMessage UpdateTaskPriority(HttpClient todoistClient, int taskId, int newPriority)
+        //public static HttpResponseMessage UpdateTaskPriority(HttpClient todoistClient, long taskId, long newPriority)
         //{
         //    if (!IsTodoistFormat(todoistClient))
         //    {
@@ -209,7 +234,7 @@ namespace TaskCaptain.REST
 
         //}
 
-        //public static HttpResponseMessage UpdateTaskDue(HttpClient todoistClient, int taskId, TodoistDue newDue)
+        //public static HttpResponseMessage UpdateTaskDue(HttpClient todoistClient, long taskId, TodoistDue newDue)
         //{
         //    if (!IsTodoistFormat(todoistClient))
         //    {
@@ -224,7 +249,7 @@ namespace TaskCaptain.REST
         ///// <param name="todoistClient"></param>
         ///// <param name="taskId"></param>
         ///// <returns></returns>
-        //public static HttpResponseMessage CloseTask(HttpClient todoistClient, int taskId)
+        //public static HttpResponseMessage CloseTask(HttpClient todoistClient, long taskId)
         //{
         //    if (!IsTodoistFormat(todoistClient))
         //    {
@@ -243,7 +268,7 @@ namespace TaskCaptain.REST
         ///// <param name="todoistClient"></param>
         ///// <param name="taskId"></param>
         ///// <returns></returns>
-        //public static HttpResponseMessage ReopenTask(HttpClient todoistClient, int taskId)
+        //public static HttpResponseMessage ReopenTask(HttpClient todoistClient, long taskId)
         //{
         //    if (!IsTodoistFormat(todoistClient))
         //    {
@@ -252,7 +277,7 @@ namespace TaskCaptain.REST
 
         //}
 
-        public static HttpResponseMessage DeleteTask(HttpClient todoistClient, int taskId)
+        public static HttpResponseMessage DeleteTask(HttpClient todoistClient, long taskId)
         {
             if (!IsTodoistFormat(todoistClient))
             {

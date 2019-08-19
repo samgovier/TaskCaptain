@@ -17,7 +17,7 @@ namespace Boatswain
         static TodoistProject testProjectOffline;
         static TodoistTask testTask1Offline = new TodoistTask("TestTask");
         static TodoistTask testTask2Offline = new TodoistTask("TestTask", 2, 4, new TodoistDue(DateTime.Today, false));
-        static TodoistTask testTask3Offline = new TodoistTask("TestTask1", null, 1, null);
+        static TodoistTask testTask3Offline = new TodoistTask("TestTask1", 0, 1, null);
 
         [TestMethod]
         public void CreateProject()
@@ -73,12 +73,6 @@ namespace Boatswain
         public void ModifyTask()
         {
            testProjectOnline[0].Content = "Who are you";
-        }
-
-        [TestMethod]
-        public void CompleteTask()
-        {
-           testProjectOnline[1].MarkComplete();
         }
 
         [TestMethod]
