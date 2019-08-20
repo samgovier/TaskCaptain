@@ -47,19 +47,8 @@ namespace TaskCaptain.REST
                 throw new ArgumentException(_badClientErrorString);
             }
 
-            StringBuilder sb = new StringBuilder();
-            StringWriter sw = new StringWriter(sb);
-            using (JsonWriter jw = new JsonTextWriter(sw))
-            {
-                jw.Formatting = Formatting.Indented;
-
-                jw.WriteStartObject();
-                jw.WritePropertyName("Name");
-                jw.WriteValue(projectName);
-                jw.WriteEndObject();
-
-                MultipartContent data = new MultipartContent(jw);
-            }
+            string projectNameJson = $"{{\"Name\":\"{projectName}\"}}";
+            StringContent data = new StringContent(projectNameJson);
 
             HttpResponseMessage requestAndResponse = todoistClient.PostAsync(new Uri(todoistClient.BaseAddress + "/projects"), data).Result;
 
