@@ -47,8 +47,8 @@ namespace TaskCaptain.REST
                 throw new ArgumentException(_badClientErrorString);
             }
 
-            string projectNameJson = $"{{\"Name\":\"{projectName}\"}}";
-            StringContent data = new StringContent(projectNameJson);
+            string projectNameJson = $"{{\"name\": \"{projectName}\"}}";
+            StringContent data = new StringContent(projectNameJson, Encoding.UTF8, "application/json");
 
             HttpResponseMessage requestAndResponse = todoistClient.PostAsync(new Uri(todoistClient.BaseAddress + "/projects"), data).Result;
 
