@@ -49,8 +49,7 @@ namespace TaskCaptain.REST
 
             string projectNameJson = $"{{\"name\": \"{projectName}\"}}";
             StringContent data = new StringContent(projectNameJson, Encoding.UTF8, "application/json");
-
-            HttpResponseMessage requestAndResponse = todoistClient.PostAsync(new Uri(todoistClient.BaseAddress + "/projects"), data).Result;
+            HttpResponseMessage requestAndResponse = todoistClient.PostAsync(todoistClient.BaseAddress + "/projects", data).Result;
 
             if (requestAndResponse.IsSuccessStatusCode)
             {
@@ -285,7 +284,12 @@ namespace TaskCaptain.REST
 
             if (null == todoistClient.BaseAddress)
             {
-                todoistClient.BaseAddress =  new Uri("https://beta.todoist.com/API/v8");
+                todoistClient.BaseAddress =  new Uri("https://api.todoist.com/rest/v1");
+            }
+
+            if(!todoistClient.DefaultRequestHeaders.Contains("X-Request-Id"))
+            {
+                todoistClient.DefaultRequestHeaders.Add("X-Request-Id", Guid.NewGuid().ToString());
             }
 
             if (!todoistClient.BaseAddress.IsWellFormedOriginalString() &&

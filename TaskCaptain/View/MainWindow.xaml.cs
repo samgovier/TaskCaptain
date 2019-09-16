@@ -26,7 +26,7 @@ namespace TaskCaptain
     {
         private TodoistAcct _todoistAcct;
         private HttpClient _todoistClient;
-        private string _todoistEndpoint = "https://beta.todoist.com/API/v8";
+        private string _todoistEndpoint = "https://api.todoist.com/rest/v1";
         private ObservableCollection<TodoistTask> _filterGridView;
         private List<DateTime> _filterGridModel;
         private ObservableCollection<TodoistTask> _projectGridView;
