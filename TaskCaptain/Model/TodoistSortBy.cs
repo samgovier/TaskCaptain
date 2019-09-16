@@ -10,16 +10,9 @@ namespace TaskCaptain
     {
         public int Compare(TodoistTask x, TodoistTask y)
         {
-            if(!(x.IsOnline) || !(y.IsOnline))
-            {
-                throw new TodoistOfflineException();
-            }
-            else
-            {
-                long xId = (long)x.Id;
-                long yId = (long)y.Id;
-                return xId.CompareTo(yId);
-            }
+            long xId = (long)x.Id;
+            long yId = (long)y.Id;
+            return xId.CompareTo(yId);
         }
     }
 
@@ -27,16 +20,9 @@ namespace TaskCaptain
     {
         public int Compare(TodoistTask x, TodoistTask y)
         {
-            if (!(x.IsOnline) || !(y.IsOnline))
-            {
-                throw new TodoistOfflineException();
-            }
-            else
-            {
-                int xOrder = (int)x.Order;
-                int yOrder = (int)y.Order;
-                return xOrder.CompareTo(yOrder);
-            }
+            int xOrder = (int)x.Order;
+            int yOrder = (int)y.Order;
+            return xOrder.CompareTo(yOrder);
         }
     }
 
@@ -79,16 +65,9 @@ namespace TaskCaptain
     {
         public int Compare(TodoistProject x, TodoistProject y)
         {
-            if (!(x.IsOnline) || !(y.IsOnline))
-            {
-                throw new TodoistOfflineException();
-            }
-            else
-            {
-                long xId = (long)x.Id;
-                long yId = (long)y.Id;
-                return xId.CompareTo(yId);
-            }
+            long xId = (long)x.Id;
+            long yId = (long)y.Id;
+            return xId.CompareTo(yId);
         }
     }
 
@@ -96,16 +75,9 @@ namespace TaskCaptain
     {
         public int Compare(TodoistProject x, TodoistProject y)
         {
-            if (!(x.IsOnline) || !(y.IsOnline))
-            {
-                throw new TodoistOfflineException();
-            }
-            else
-            {
-                int xOrder = (int)x.Order;
-                int yOrder = (int)y.Order;
-                return xOrder.CompareTo(yOrder);
-            }
+            int xOrder = (int)x.Order;
+            int yOrder = (int)y.Order;
+            return xOrder.CompareTo(yOrder);
         }
     }
 }

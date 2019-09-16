@@ -4,6 +4,7 @@ using TaskCaptain;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using TaskCaptain.REST;
 
 namespace Boatswain
 {
@@ -20,8 +21,8 @@ namespace Boatswain
 
             testclient.DefaultRequestHeaders.Add("Authorization", "Bearer ");
 
-            string response = testclient.GetStringAsync(new Uri("https://beta.todoist.com/API/v8/projects")).Result;
-            //string responseSingle = testclient.GetStringAsync(new Uri("https://beta.todoist.com/API/v8/projects/180783822")).Result;
+            string response = testclient.GetStringAsync(new Uri("https://api.todoist.com/rest/v1/projects")).Result;
+            //string responseSingle = testclient.GetStringAsync(new Uri("https://api.todoist.com/rest/v1/projects/180783822")).Result;
             //TodoistProject inputSingle = JsonConvert.DeserializeObject<TodoistProject>(responseSingle);
             List<TodoistProject> input = JsonConvert.DeserializeObject<List<TodoistProject>>(response);
 
@@ -35,8 +36,8 @@ namespace Boatswain
 
             testclient.DefaultRequestHeaders.Add("Authorization", "Bearer ");
 
-            string response = testclient.GetStringAsync(new Uri("https://beta.todoist.com/API/v8/tasks")).Result;
-            //string responseSingle = testclient.GetStringAsync(new Uri("https://beta.todoist.com/API/v8/tasks/3178098427")).Result;
+            string response = testclient.GetStringAsync(new Uri("https://api.todoist.com/rest/v1/tasks")).Result;
+            //string responseSingle = testclient.GetStringAsync(new Uri("https://api.todoist.com/rest/v1/tasks/3178098427")).Result;
 
             //var dict = Newtonsoft.Json.Linq.JObject.Parse(responseSingle);
             List<TodoistTask> input = JsonConvert.DeserializeObject<List<TodoistTask>>(response);
@@ -55,5 +56,15 @@ namespace Boatswain
 
         }
 
+        [TestMethod]
+        public void TestCreateAndDeleteNewProject()
+        {
+            HttpClient testclient = new HttpClient();
+            testclient.DefaultRequestHeaders.Add("Authorization", "Bearer 4019f27f4a31859906535ff630dcac7ebb541062");
+            testclient.BaseAddress = new Uri("http://api.todoist.com/rest/v1");
+            HttpResponseMessage response = TodoistClient.CreateNewProject(testclient, "TEST PROJ", out TodoistProject newbaby);
+            Assert.AreEqual("TEST PROJ", newbaby.Name);
+            TodoistClient.DeleteProject(testclient, newbaby.Id);
+        }
     }
 }

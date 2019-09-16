@@ -19,7 +19,7 @@
             <Setter Property="AutoGenerateColumns"
                     Value="False" />
             <Setter Property="IsReadOnly"
-                    Value="True" />
+                    Value="False" />
             <Setter Property="HorizontalAlignment"
                     Value="Left" />
             <Setter Property="Width"
@@ -55,7 +55,7 @@
                           Style="{StaticResource StandardTaskGrid}"  Margin="10,20" HorizontalAlignment="Center">
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn Header="✓"
-                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                                                    Binding="{Binding IsCompleted}" MaxWidth="20" Width="20" />
                         <DataGridTextColumn Header="Description"
                                                 Binding="{Binding Content}"  Width="Auto" MinWidth="600" MaxWidth="1800" >
                             <DataGridTextColumn.ElementStyle>
@@ -73,18 +73,19 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
-                    <TreeView>
-                        <TreeViewItem Header="Today" />
-                        <TreeViewItem Header="Tomorrow" />
-                        <TreeViewItem Header="Saturday" />
-                        <TreeViewItem Header="Rest Of Week" />
-                        <TreeViewItem Header="7 Days" />
-                        <Button VerticalAlignment="Bottom" Content="Add Filter..." Name="AddFilter" Margin="0,5" />
+                    <TreeView Name="FilterTreeView" SelectedItemChanged="FilterTreeView_SelectedItemChanged">
+                        <TreeView.ItemTemplate>
+                            <!-- Use a dictionary with string to value -->
+                            <HierarchicalDataTemplate DataType="x:Type self:TodoistFilter}">
+                                <TextBlock Text="{Binding Key}"/>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
                     </TreeView>
+                    <Button VerticalAlignment="Bottom" Content="Add Filter..." Name="AddFilter" Margin="0,5" />
                     <DataGrid Name="FilterGrid" Style="{StaticResource StandardTaskGrid}" Width="Auto">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Header="✓"
-                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                                                    Binding="{Binding IsCompleted}" MaxWidth="20" Width="20" />
                             <DataGridTextColumn Header="Description"
                                                 Binding="{Binding Content}"  Width="600" MinWidth="100">
                                 <DataGridTextColumn.ElementStyle>
@@ -96,7 +97,7 @@
                             <DataGridTextColumn Header="p"
                                                 Binding="{Binding Priority}" MaxWidth="20" Width="20" />
                             <DataGridTextColumn Header="Project"
-                                                Binding="{Binding ProjectId}" MinWidth="50" />
+                                                Binding="{Binding ProjectId, Mode=OneWay}" MinWidth="50" />
                             <DataGridTextColumn Header="Due"
                                                 Binding="{Binding Due.EntryString}" MinWidth="50" />
                         </DataGrid.Columns>
@@ -109,18 +110,18 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
-                    <TreeView>
-                        <TreeViewItem Header="Inbox" />
-                        <TreeViewItem Header="Personal" />
-                        <TreeViewItem Header="Work">
-                            <TreeViewItem Header="Hunt" />
-                        </TreeViewItem>
-                        <Button VerticalAlignment="Bottom" Content="Add Project..." Name="AddProject" Margin="0,5" />
+                    <TreeView Name="ProjectTreeView" SelectedItemChanged="ProjectTreeView_SelectedItemChanged">
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate DataType="x:Type self:TodoistProject}">
+                                <TextBlock Text="{Binding Name}"/>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
                     </TreeView>
+                    <Button VerticalAlignment="Bottom" Content="Add Project..." Name="AddProject" Margin="0,5" />
                     <DataGrid Name="ProjectGrid" Style="{StaticResource StandardTaskGrid}" Width="Auto">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Header="✓"
-                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                                                    Binding="{Binding IsCompleted}" MaxWidth="20" Width="20" />
                             <DataGridTextColumn Header="Description"
                                                 Binding="{Binding Content}"  Width="600" MinWidth="100">
                                 <DataGridTextColumn.ElementStyle>
@@ -132,7 +133,7 @@
                             <DataGridTextColumn Header="p"
                                                 Binding="{Binding Priority}" MaxWidth="20" Width="20" />
                             <DataGridTextColumn Header="Project"
-                                                Binding="{Binding ProjectId}" MinWidth="50" />
+                                                Binding="{Binding ProjectId, Mode=OneWay}" MinWidth="50" />
                             <DataGridTextColumn Header="Due"
                                                 Binding="{Binding Due.EntryString}" MinWidth="50" />
                         </DataGrid.Columns>
@@ -191,7 +192,7 @@
                             <DataGrid Name="DateRngSchGrid" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource StandardTaskGrid}" HorizontalAlignment="Center" MaxHeight="200" Visibility="Visible" >
                                 <DataGrid.Columns>
                                     <DataGridCheckBoxColumn Header="✓"
-                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                                                    Binding="{Binding IsCompleted}" MaxWidth="20" Width="20" />
                                     <DataGridTextColumn Header="Description"
                                                 Binding="{Binding Content}"  Width="Auto" MinWidth="600" MaxWidth="1800" >
                                         <DataGridTextColumn.ElementStyle>
@@ -222,7 +223,7 @@
                             <DataGrid Name="RecurEnumerateGrid" Grid.Row="1" Grid.Column="1" Style="{StaticResource StandardTaskGrid}" HorizontalAlignment="Center" MaxHeight="200" Visibility="Visible">
                                 <DataGrid.Columns>
                                     <DataGridCheckBoxColumn Header="✓"
-                                                    Binding="{Binding IsCompleted, Mode=OneWay}" MaxWidth="20" Width="20" />
+                                                    Binding="{Binding IsCompleted}" MaxWidth="20" Width="20" />
                                     <DataGridTextColumn Header="Description"
                                                 Binding="{Binding Content}"  Width="Auto" MinWidth="600" MaxWidth="1800" >
                                         <DataGridTextColumn.ElementStyle>

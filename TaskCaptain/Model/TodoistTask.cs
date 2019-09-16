@@ -18,12 +18,13 @@ namespace TaskCaptain
         #region Config
 
         // These are the private backing fields for the below properties
-        long? _id;
-        long? _projectId;
-        int? _order;
-        int? _indent;
+        long _id;
+        long _projectId;
+        int _order;
+        int _indent;
         int _priority;
         string _content;
+        bool _isCompleted;
         string _webUrl;
 
         /// <summary>
@@ -31,7 +32,7 @@ namespace TaskCaptain
         /// Null if offline
         /// </summary>
         [JsonProperty(nameof(Id))]
-        public long? Id
+        public long Id
         {
             get
             {
@@ -45,8 +46,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Id)));
                     _id = value;
-                    IsOnline = true;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
                 }
             }
         }
@@ -56,7 +58,7 @@ namespace TaskCaptain
         /// Null if offline
         /// </summary>
         [JsonProperty("project_id")]
-        public long? ProjectId
+        public long ProjectId
         {
             get
             {
@@ -70,8 +72,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(ProjectId)));
                     _projectId = value;
-                    IsOnline = true;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ProjectId)));
                 }
             }
         }
@@ -95,7 +98,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Content)));
                     _content = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Content)));
                 }
             }
         }
@@ -105,7 +110,7 @@ namespace TaskCaptain
         /// Null if offline
         /// </summary>
         [JsonProperty(nameof(Order))]
-        public int? Order
+        public int Order
         {
             get
             {
@@ -119,8 +124,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Order)));
                     _order = value;
-                    IsOnline = true;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Order)));
                 }
             }
         }
@@ -130,7 +136,7 @@ namespace TaskCaptain
         /// Null if offline
         /// </summary
         [JsonProperty(nameof(Indent))]
-        public int? Indent
+        public int Indent
         {
             get
             {
@@ -144,8 +150,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Indent)));
                     _indent = value;
-                    IsOnline = true;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Indent)));
                 }
             }
         }
@@ -169,7 +176,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Priority)));
                     _priority = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Priority)));
                 }
             }
         }
@@ -194,7 +203,6 @@ namespace TaskCaptain
             set
             {
                 _webUrl = value;
-                IsOnline = true;
             }
 
         }
@@ -203,12 +211,20 @@ namespace TaskCaptain
         /// IsCompleted is a boolean to state whether the task is completed or not
         /// </summary>
         [JsonProperty("completed")]
-        public bool IsCompleted { get; private set; }
+        public bool IsCompleted
+        {
+            get
+            {
+                return _isCompleted;
+            }
 
-        /// <summary>
-        /// IsOnline is a boolean marking whether or not this task is online, and other values are expected
-        /// </summary>
-        public bool IsOnline { get; private set; }
+            set
+            {
+                PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(IsCompleted)));
+                _isCompleted = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsCompleted)));
+            }
+        }
 
         /// <summary>
         /// PropertyChanging is called when a property is in the process of being changed
@@ -232,8 +248,16 @@ namespace TaskCaptain
         {
             Content = content;
             IsCompleted = false;
-            IsOnline = false;
             Priority = 4;
+        }
+
+        /// <summary>
+        /// Test constructor
+        /// </summary>
+        public TodoistTask()
+        {
+            // NO
+            Due = new TodoistDue();
         }
 
         /// <summary>
@@ -243,14 +267,13 @@ namespace TaskCaptain
         /// <param name="projectId"></param>
         /// <param name="priority"></param>
         /// <param name="due"></param>
-        public TodoistTask(string content, long? projectId, int priority, TodoistDue due)
+        public TodoistTask(string content, long projectId, int priority, TodoistDue due)
         {
             Content = content;
             ProjectId = projectId;
             Priority = priority;
             Due = due;
             IsCompleted = false;
-            IsOnline = false;
         }
 
         /// <summary>
@@ -277,29 +300,13 @@ namespace TaskCaptain
             Priority = priority;
             Due = due;
             WebUrl = webUrl;
-            IsOnline = true;
         }
         #endregion
         #region Functions
 
-        /// <summary>
-        /// MarkComplete marks the task as complete
-        /// </summary>
-        public void MarkComplete()
-        {
-            IsCompleted = true;
-        }
-
         public void MoveToProject(TodoistProject destProject)
         {
-            if (!(IsOnline) || !(destProject.IsOnline))
-            {
-                throw new TodoistOfflineException("The task or project is offline.");
-            }
-            else
-            {
-                ProjectId = destProject.Id;
-            }
+            ProjectId = destProject.Id;
         }
 
         #endregion

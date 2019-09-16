@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.Collections.Specialized;
 
 namespace TaskCaptain
 {
@@ -26,9 +27,9 @@ namespace TaskCaptain
         private ObservableCollection<TodoistTask> _taskList;
 
         // These are the private backing fields for the below properties
-        long? _id;
-        int? _order;
-        int? _indent;
+        long _id;
+        int _order;
+        int _indent;
         string _name;
 
         // These fields are used for sorting the project by the corresponding name
@@ -46,7 +47,7 @@ namespace TaskCaptain
         /// Null if offline
         /// </summary>
         [JsonProperty(nameof(Id))]
-        public long? Id
+        public long Id
         {
             get
             {
@@ -60,9 +61,30 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Id)));
                     _id = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Id)));
                 }
             }
+        }
+
+        internal void ObservableCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach (TodoistTask task in e.NewItems)
+                {
+                    Add(task);
+                }
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (TodoistTask task in e.OldItems)
+                {
+                    Remove(task);
+                }
+            }
+
         }
 
         /// <summary>
@@ -83,7 +105,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Name)));
                     _name = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
                 }
             }
         }
@@ -92,7 +116,7 @@ namespace TaskCaptain
         /// Null if offline
         /// </summary>
         [JsonProperty(nameof(Order))]
-        public int? Order
+        public int Order
         {
             get
             {
@@ -106,7 +130,9 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Order)));
                     _order = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Order)));
                 }
             }
         }
@@ -116,7 +142,7 @@ namespace TaskCaptain
         /// Null if offline
         /// </summary>
         [JsonProperty(nameof(Indent))]
-        public int? Indent
+        public int Indent
         {
             get
             {
@@ -130,15 +156,12 @@ namespace TaskCaptain
                 }
                 else
                 {
+                    PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(nameof(Indent)));
                     _indent = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Indent)));
                 }
             }
         }
-
-        /// <summary>
-        /// IsOnline is a boolean marking whether or not this task is online, and other values are expected
-        /// </summary>
-        public bool IsOnline { get; private set; }
 
         /// <summary>
         /// IsReadOnly is a boolean marking whether or not this item is editable
@@ -172,7 +195,6 @@ namespace TaskCaptain
         {
             Name = name;
             _taskList = new ObservableCollection<TodoistTask>();
-            IsOnline = false;
         }
 
         /// <summary>
@@ -184,7 +206,6 @@ namespace TaskCaptain
         {
             Name = name;
             _taskList = new ObservableCollection<TodoistTask>();
-            IsOnline = false;
 
             foreach (TodoistTask task in taskArray)
             {
@@ -207,7 +228,6 @@ namespace TaskCaptain
             Order = order;
             Indent = indent;
             _taskList = new ObservableCollection<TodoistTask>();
-            IsOnline = true;
         }
 
         /// <summary>
@@ -225,7 +245,6 @@ namespace TaskCaptain
             Order = order;
             Indent = indent;
             _taskList = new ObservableCollection<TodoistTask>();
-            IsOnline = true;
 
             foreach (TodoistTask task in taskArray)
             {

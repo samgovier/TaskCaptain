@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Collections.Specialized;
 
 namespace TaskCaptain
 {
@@ -73,6 +74,25 @@ namespace TaskCaptain
             }
         }
 
+        internal void ObservableCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+           if(e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach(TodoistTask task in e.NewItems)
+                {
+                    GetProjectById(task.ProjectId).Add(task);
+                }
+            }
+           else if(e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach(TodoistTask task in e.OldItems)
+                {
+                    GetProjectById(task.ProjectId).Remove(task);
+                }
+            }
+          
+        }
+
         #endregion
 
         #region Standard Functions
@@ -135,7 +155,7 @@ namespace TaskCaptain
             }
         }
 
-        public TodoistProject GetProjectById(int projId)
+        public TodoistProject GetProjectById(long projId)
         {
             foreach(TodoistProject project in _projectList)
             {
@@ -148,7 +168,7 @@ namespace TaskCaptain
             return null;
         }
 
-        public TodoistTask[] GetTasksForDate(DateTime selectedDate)
+        public TodoistTask[] GetTasksForDates(params DateTime[] selectedDates)
         {
             List<TodoistTask> dateTasks = new List<TodoistTask>();
 
@@ -160,15 +180,34 @@ namespace TaskCaptain
                     {
                         task.Due.TryParseToDateTime(out DateTime taskDT);
 
-                        if (selectedDate.Equals(taskDT))
+                        foreach(DateTime date in selectedDates)
                         {
-                            dateTasks.Add(task);
+                            if (selectedDates.Equals(taskDT))
+                            {
+                                dateTasks.Add(task);
+                                break;
+                            }
                         }
                     }
                 }
             }
 
             return dateTasks.ToArray();
+        }
+
+        public ObservableCollection<TodoistTask> GetObservableTasks(TodoistProject sourceProject)
+        {
+            return new ObservableCollection<TodoistTask>(sourceProject.ToList());
+        }
+
+        public ObservableCollection<TodoistTask> GetObservableTasks(params DateTime[] forDates)
+        {
+            return new ObservableCollection<TodoistTask>(GetTasksForDates(forDates));
+        }
+
+        public ObservableCollection<TodoistProject> GetObservableProjects()
+        {
+            return new ObservableCollection<TodoistProject>(_projectList.ToList());
         }
 
         #endregion

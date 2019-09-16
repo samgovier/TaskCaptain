@@ -38,8 +38,9 @@
     <ApplicationIcon>Ship.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -63,7 +64,6 @@
     </ApplicationDefinition>
     <Compile Include="Model\TodoistAcct.cs" />
     <Compile Include="Model\TodoistDue.cs" />
-    <Compile Include="Model\TodoistOfflineException.cs" />
     <Compile Include="Model\TodoistProject.cs" />
     <Compile Include="Model\TodoistSortBy.cs" />
     <Compile Include="Model\TodoistTask.cs" />
@@ -75,7 +75,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TodoistAutomation.cs" />
+    <Compile Include="Model\TodoistAutomation.cs" />
+    <Compile Include="REST\TodoistClient.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
+using TaskCaptain.REST;
 
 namespace TaskCaptain
 {
@@ -24,16 +26,34 @@ namespace TaskCaptain
     {
         private TodoistAcct _todoistAcct;
         private HttpClient _todoistClient;
-        private string _todoistEndpoint = "https://beta.todoist.com/API/v8";
+        private string _todoistEndpoint = "https://api.todoist.com/rest/v1";
+        private ObservableCollection<TodoistTask> _filterGridView;
+        private List<DateTime> _filterGridModel;
+        private ObservableCollection<TodoistTask> _projectGridView;
+        private TodoistProject _projectGridModel;
 
         public MainWindow()
         {
             InitializeTodoistAccount();
             InitializeComponent();
-            FocusGrid.ItemsSource = _todoistAcct[1];
-            ProjectGrid.ItemsSource = _todoistAcct[1];
-            RecurEnumerateGrid.ItemsSource = DateRngSchGrid.ItemsSource = _todoistAcct[1];
-            LastWkPrjCombo.ItemsSource = BacktoInbPrjCombo.ItemsSource = _todoistAcct;
+            InitializeTwoWayGrids();
+            FocusGrid.ItemsSource = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
+            RecurEnumerateGrid.ItemsSource = DateRngSchGrid.ItemsSource = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
+            LastWkPrjCombo.ItemsSource = BacktoInbPrjCombo.ItemsSource = _todoistAcct.GetObservableProjects();
+
+            ProjectTreeView.ItemsSource = _todoistAcct;
+        }
+
+        private void InitializeTwoWayGrids()
+        {
+            _filterGridView = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
+            _projectGridModel = _todoistAcct[1];
+            FilterGrid.ItemsSource = _filterGridView;
+            _projectGridView = _todoistAcct.GetObservableTasks(_todoistAcct[1]);
+            _filterGridModel = null;
+            ProjectGrid.ItemsSource = _projectGridView;
+            _projectGridView.CollectionChanged += _projectGridModel.ObservableCollectionChanged;
+            _filterGridView.CollectionChanged += _todoistAcct.ObservableCollectionChanged;
         }
 
         private void InitializeTodoistAccount()
@@ -41,10 +61,13 @@ namespace TaskCaptain
             string restApiToken = "4019f27f4a31859906535ff630dcac7ebb541062";
             _todoistClient = new HttpClient();
             _todoistClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + restApiToken);
-            string getProjectsString = _todoistClient.GetStringAsync(new Uri(_todoistEndpoint + "/projects")).Result;
-            string getTasksString = _todoistClient.GetStringAsync(new Uri(_todoistEndpoint + "/tasks")).Result;
-            List<TodoistProject> getProjectsList = JsonConvert.DeserializeObject<List<TodoistProject>>(getProjectsString);
-            List<TodoistTask> getTasksList = JsonConvert.DeserializeObject<List<TodoistTask>>(getTasksString);
+            //string getProjectsString = _todoistClient.GetStringAsync(new Uri(_todoistEndpoint + "/projects")).Result;
+            //string getTasksString = _todoistClient.GetStringAsync(new Uri(_todoistEndpoint + "/tasks")).Result;
+            //List<TodoistProject> getProjectsList = JsonConvert.DeserializeObject<List<TodoistProject>>(getProjectsString);
+            //List<TodoistTask> getTasksList = JsonConvert.DeserializeObject<List<TodoistTask>>(getTasksString);
+
+            HttpResponseMessage GetAllProjects = TodoistClient.GetAllProjects(_todoistClient, out ICollection<TodoistProject> getProjectsList);
+            HttpResponseMessage GetAllTasks = TodoistClient.GetAllActiveTasks(_todoistClient, out ICollection<TodoistTask> getTasksList);
 
             //place each task in it's corresponding project
             foreach(TodoistTask taskItem in getTasksList)
@@ -101,7 +124,7 @@ namespace TaskCaptain
 
             foreach (DateTime selectedDate in DateRngSchCal.SelectedDates)
             {
-                tasksToMove.AddRange(_todoistAcct.GetTasksForDate(selectedDate));
+                tasksToMove.AddRange(_todoistAcct.GetTasksForDates(selectedDate));
             }
 
             DateRngSchGrid.ItemsSource = tasksToMove;
@@ -143,6 +166,19 @@ namespace TaskCaptain
             {
                 TodoistAutomation.TranslateRecurrence(recurringTask, new TimeSpan());
             }
+        }
+
+        private void ProjectTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            TodoistProject selectedProject = (TodoistProject)e.NewValue;
+            _projectGridModel = selectedProject;
+            ProjectGrid.ItemsSource = _projectGridView = _todoistAcct.GetObservableTasks(selectedProject);
+            _projectGridView.CollectionChanged += _projectGridModel.ObservableCollectionChanged;
+        }
+
+        private void FilterTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+
         }
     }
 }
